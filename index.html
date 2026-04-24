@@ -3,31 +3,1064 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>乳腺外来 | 吉祥寺</title>
+  <title>乳腺外来 | 吉祥寺レディースクリニック</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
   <style>
-    body {
+    :root {
+      --pink-50: #fef2f3;
+      --pink-100: #fce7e9;
+      --pink-200: #fad4d8;
+      --pink-300: #f6b0b8;
+      --pink-400: #f0818f;
+      --pink-500: #e5566a;
+      --pink-600: #d13752;
+      --rose-50: #fff1f2;
+      --rose-100: #ffe4e6;
+      --rose-200: #fecdd3;
+      --cream: #faf7f5;
+      --white: #ffffff;
+      --gray-50: #fafaf9;
+      --gray-100: #f5f5f4;
+      --gray-200: #e7e5e4;
+      --gray-300: #d6d3d1;
+      --gray-400: #a8a29e;
+      --gray-500: #78716c;
+      --gray-600: #57534e;
+      --gray-700: #44403c;
+      --gray-800: #292524;
+      --text-primary: #44403c;
+      --text-secondary: #57534e;
+    }
+
+    * {
       margin: 0;
-      font-family: sans-serif;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      color: var(--text-primary);
+      background: var(--cream);
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Zen Maru Gothic', sans-serif;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    /* ヘッダー */
+    .header {
+      background: var(--white);
+      padding: 1.5rem 2rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--pink-600);
+      letter-spacing: 0.02em;
+    }
+
+    .cta-button {
+      background: linear-gradient(135deg, var(--pink-500), var(--pink-600));
+      color: white;
+      padding: 0.8rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(225, 86, 106, 0.3);
+    }
+
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(225, 86, 106, 0.4);
+    }
+
+    /* ヒーローセクション */
+    .hero {
+      position: relative;
+      padding: 5rem 2rem;
+      background: linear-gradient(135deg, var(--pink-50) 0%, var(--rose-50) 100%);
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(245, 176, 184, 0.2) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: float 20s ease-in-out infinite;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      left: -5%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(254, 205, 211, 0.25) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: float 25s ease-in-out infinite reverse;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(30px, -30px) scale(1.1); }
+    }
+
+    .hero-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      margin-bottom: 1.5rem;
+      color: var(--gray-800);
+      font-weight: 500;
+      line-height: 1.3;
+    }
+
+    .hero-subtitle {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+    }
+
+    .hero-features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .feature-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 24px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+    }
+
+    .feature-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--pink-100), var(--rose-100));
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
-      background: #faf7f5;
-      color: #333;
+      margin: 0 auto 1.2rem;
+      font-size: 1.8rem;
     }
-    .placeholder {
+
+    .feature-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.8rem;
+      color: var(--pink-600);
+    }
+
+    .feature-card p {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* セクション共通 */
+    .section {
+      padding: 5rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-title {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+      color: var(--gray-800);
+    }
+
+    .section-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+    }
+
+    /* タブセクション */
+    .tabs-section {
+      background: var(--white);
+      padding: 5rem 2rem;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 1rem;
+      max-width: 800px;
+      margin: 0 auto 3rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .tab-button {
+      padding: 1rem 2rem;
+      border: 2px solid var(--pink-200);
+      background: var(--white);
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Zen Maru Gothic', sans-serif;
+    }
+
+    .tab-button:hover {
+      border-color: var(--pink-400);
+      background: var(--pink-50);
+    }
+
+    .tab-button.active {
+      background: linear-gradient(135deg, var(--pink-500), var(--pink-600));
+      color: white;
+      border-color: transparent;
+      box-shadow: 0 4px 15px rgba(225, 86, 106, 0.3);
+    }
+
+    .tab-content {
+      display: none;
+      max-width: 1000px;
+      margin: 0 auto;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .exam-content {
+      background: var(--gray-50);
+      padding: 3rem;
+      border-radius: 32px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    }
+
+    .exam-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .exam-item {
+      background: white;
+      padding: 2rem;
+      border-radius: 20px;
+      border-left: 4px solid var(--pink-400);
+    }
+
+    .exam-item h4 {
+      color: var(--pink-600);
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+
+    .exam-item ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .exam-item li {
+      padding: 0.5rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+      color: var(--text-secondary);
+    }
+
+    .exam-item li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--pink-500);
+      font-weight: bold;
+    }
+
+    /* 乳がん統計セクション */
+    .stats-section {
+      background: linear-gradient(135deg, var(--pink-50), var(--rose-50));
+      padding: 5rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stats-section::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      left: -10%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(254, 205, 211, 0.3) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .stats-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .stat-highlight {
+      background: white;
+      padding: 3rem;
+      border-radius: 32px;
+      text-align: center;
+      margin: 2rem 0;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    }
+
+    .stat-number {
+      font-size: 4rem;
+      font-weight: 700;
+      color: var(--pink-600);
+      font-family: 'Zen Maru Gothic', sans-serif;
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .stat-label {
+      font-size: 1.2rem;
+      color: var(--text-primary);
+      margin-bottom: 1.5rem;
+    }
+
+    .stat-description {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+
+    /* 医師紹介セクション */
+    .doctor-section {
+      background: var(--white);
+      padding: 5rem 2rem;
+    }
+
+    .doctor-card {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--gray-50);
+      padding: 3rem;
+      border-radius: 32px;
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .doctor-photo {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--pink-200), var(--rose-200));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      color: var(--pink-600);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    }
+
+    .doctor-info h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--gray-800);
+    }
+
+    .credentials {
+      list-style: none;
+      margin-bottom: 1.5rem;
+    }
+
+    .credentials li {
+      padding: 0.4rem 0;
+      color: var(--pink-600);
+      font-size: 0.95rem;
+      padding-left: 1.2rem;
+      position: relative;
+    }
+
+    .credentials li::before {
+      content: '●';
+      position: absolute;
+      left: 0;
+      font-size: 0.6rem;
+    }
+
+    /* FAQセクション */
+    .faq-section {
+      background: var(--cream);
+      padding: 5rem 2rem;
+    }
+
+    .faq-list {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      background: white;
+      margin-bottom: 1.5rem;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+      transition: all 0.3s ease;
+    }
+
+    .faq-item:hover {
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+
+    .faq-question {
+      padding: 1.5rem 2rem;
+      background: var(--white);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 500;
+      color: var(--gray-800);
+      transition: background 0.3s ease;
+    }
+
+    .faq-question:hover {
+      background: var(--pink-50);
+    }
+
+    .faq-icon {
+      font-size: 1.5rem;
+      color: var(--pink-500);
+      transition: transform 0.3s ease;
+    }
+
+    .faq-item.active .faq-icon {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      padding: 0 2rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+
+    .faq-item.active .faq-answer {
+      max-height: 500px;
+      padding: 1.5rem 2rem;
+    }
+
+    /* CTAセクション */
+    .cta-section {
+      background: linear-gradient(135deg, var(--pink-500), var(--pink-600));
+      padding: 5rem 2rem;
+      text-align: center;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .cta-content {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-section h2 {
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-section p {
+      font-size: 1.1rem;
+      margin-bottom: 2.5rem;
+      opacity: 0.95;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-btn-primary, .cta-btn-secondary {
+      padding: 1.2rem 3rem;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+
+    .cta-btn-primary {
+      background: white;
+      color: var(--pink-600);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+
+    .cta-btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 25px rgba(0,0,0,0.2);
+    }
+
+    .cta-btn-secondary {
+      background: transparent;
+      color: white;
+      border: 2px solid white;
+    }
+
+    .cta-btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* フッター */
+    .footer {
+      background: var(--gray-800);
+      color: var(--gray-200);
+      padding: 3rem 2rem 1.5rem;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
       text-align: center;
     }
-    h1 {
-      font-size: 1.5rem;
-      font-weight: normal;
-      color: #ff0000;
+
+    .footer-info {
+      margin-bottom: 2rem;
+    }
+
+    .footer-info h4 {
+      color: white;
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+    }
+
+    .footer-info p {
+      margin: 0.5rem 0;
+      font-size: 0.95rem;
+    }
+
+    .footer-bottom {
+      padding-top: 2rem;
+      border-top: 1px solid var(--gray-700);
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+
+    /* レスポンシブ */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1rem;
+      }
+
+      .hero-features {
+        grid-template-columns: 1fr;
+      }
+
+      .section-title {
+        font-size: 1.8rem;
+      }
+
+      .doctor-card {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .doctor-photo {
+        margin: 0 auto;
+      }
+
+      .tabs {
+        flex-direction: column;
+      }
+
+      .tab-button {
+        width: 100%;
+      }
+
+      .exam-content {
+        padding: 2rem 1.5rem;
+      }
+
+      .stat-number {
+        font-size: 3rem;
+      }
+
+      .cta-section h2 {
+        font-size: 1.8rem;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+      }
+
+      .cta-btn-primary, .cta-btn-secondary {
+        width: 100%;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="placeholder">
-    <h1>準備中</h1>
-  </div>
+  <!-- ヘッダー -->
+  <header class="header">
+    <div class="header-content">
+      <div class="logo">吉祥寺レディースクリニック 乳腺外来</div>
+      <a href="tel:0422-40-1170" class="cta-button">📞 予約・お問い合わせ</a>
+    </div>
+  </header>
+
+  <!-- ヒーローセクション -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>気になる胸の違和感、<br>一人で抱えないでください</h1>
+      <p class="hero-subtitle">
+        女性医師・女性技師が、あなたの不安に寄り添います。<br>
+        些細なことでもお気軽にご相談ください。
+      </p>
+
+      <div class="hero-features">
+        <div class="feature-card">
+          <div class="feature-icon">👩‍⚕️</div>
+          <h3>全て女性スタッフ</h3>
+          <p>医師から検査技師まで、すべて女性スタッフが対応。デリケートな検査も安心して受けられます。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🏥</div>
+          <h3>当日結果説明</h3>
+          <p>マンモグラフィ・超音波検査の結果は当日お伝えします。不安な待ち時間を最小限に。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💝</div>
+          <h3>専門医による診療</h3>
+          <p>日本乳癌学会専門医、検診マンモグラフィ読影認定医が丁寧に診察いたします。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 検査内容タブセクション -->
+  <section class="tabs-section">
+    <div class="section-header">
+      <h2 class="section-title">検査について</h2>
+      <p class="section-subtitle">あなたに合った検査方法をご提案します</p>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-button active" data-tab="mammography">マンモグラフィ</button>
+      <button class="tab-button" data-tab="ultrasound">乳房超音波（エコー）</button>
+      <button class="tab-button" data-tab="comparison">検査の比較</button>
+    </div>
+
+    <div class="tab-content active" id="mammography">
+      <div class="exam-content">
+        <h3 style="margin-bottom: 1.5rem; font-size: 1.5rem; color: var(--pink-600);">マンモグラフィ検査</h3>
+        <p style="margin-bottom: 2rem; line-height: 1.8;">
+          乳房専用のX線検査です。触診ではわからない小さな病変や、石灰化を発見することができます。
+        </p>
+
+        <div class="exam-grid">
+          <div class="exam-item">
+            <h4>検査方法</h4>
+            <ul>
+              <li>上半身は検査着に着替え</li>
+              <li>片方ずつ乳房を撮影台に乗せる</li>
+              <li>圧迫板で乳房を圧迫して撮影</li>
+              <li>左右各2方向ずつ撮影</li>
+            </ul>
+          </div>
+
+          <div class="exam-item">
+            <h4>痛みについて</h4>
+            <ul>
+              <li>個人差がありますが、圧迫時に痛みを伴うことがあります</li>
+              <li>生理後1週間頃が最も痛みが少ない時期</li>
+              <li>リラックスすることで痛みを軽減できます</li>
+              <li>圧迫時間は数秒程度と短いです</li>
+            </ul>
+          </div>
+
+          <div class="exam-item">
+            <h4>こんな方におすすめ</h4>
+            <ul>
+              <li>40歳以上の方</li>
+              <li>石灰化の有無を確認したい方</li>
+              <li>乳がん検診を受けたい方</li>
+              <li>家族歴のある方</li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="margin-top: 2rem; padding: 1.5rem; background: var(--pink-50); border-radius: 16px; border-left: 4px solid var(--pink-500);">
+          <p style="margin: 0; color: var(--text-primary);">
+            <strong>※ 注意事項：</strong>豊胸術後の方はマンモグラフィ検査を受けることができません。超音波での検査が可能です。
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-content" id="ultrasound">
+      <div class="exam-content">
+        <h3 style="margin-bottom: 1.5rem; font-size: 1.5rem; color: var(--pink-600);">乳房超音波（エコー）検査</h3>
+        <p style="margin-bottom: 2rem; line-height: 1.8;">
+          超音波で乳房内部を画像化する検査です。被曝がなく、痛みもありません。若い方や乳腺が発達している方に特に有効です。
+        </p>
+
+        <div class="exam-grid">
+          <div class="exam-item">
+            <h4>検査方法</h4>
+            <ul>
+              <li>上半身を脱いでベッドに仰向けになります</li>
+              <li>乳房に専用のゼリーを塗布</li>
+              <li>探触子（プローブ）を当てて検査</li>
+              <li>リアルタイムで観察できます</li>
+            </ul>
+          </div>
+
+          <div class="exam-item">
+            <h4>安全性</h4>
+            <ul>
+              <li>被爆の心配がありません</li>
+              <li>痛みは全くありません</li>
+              <li>妊娠中でも受けられます</li>
+              <li>繰り返し検査ができます</li>
+            </ul>
+          </div>
+
+          <div class="exam-item">
+            <h4>こんな方におすすめ</h4>
+            <ul>
+              <li>40歳未満の方</li>
+              <li>乳腺が発達している方</li>
+              <li>痛みが心配な方</li>
+              <li>妊娠中・授乳中の方</li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="margin-top: 2rem; padding: 1.5rem; background: var(--rose-50); border-radius: 16px; border-left: 4px solid var(--pink-500);">
+          <p style="margin: 0; color: var(--text-primary);">
+            <strong>結果説明：</strong>乳腺外来でのマンモグラフィ検査・乳房超音波検査の結果は当日お伝えしております。
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-content" id="comparison">
+      <div class="exam-content">
+        <h3 style="margin-bottom: 1.5rem; font-size: 1.5rem; color: var(--pink-600);">マンモグラフィと超音波の比較</h3>
+        
+        <div style="overflow-x: auto;">
+          <table style="width: 100%; border-collapse: collapse; margin-top: 2rem; background: white; border-radius: 12px; overflow: hidden;">
+            <thead>
+              <tr style="background: linear-gradient(135deg, var(--pink-500), var(--pink-600)); color: white;">
+                <th style="padding: 1.2rem; text-align: left; font-weight: 500;">項目</th>
+                <th style="padding: 1.2rem; text-align: left; font-weight: 500;">マンモグラフィ</th>
+                <th style="padding: 1.2rem; text-align: left; font-weight: 500;">乳房超音波</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid var(--gray-200);">
+                <td style="padding: 1.2rem; font-weight: 500;">得意な検査</td>
+                <td style="padding: 1.2rem;">石灰化の検出</td>
+                <td style="padding: 1.2rem;">しこりの検出</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--gray-200);">
+                <td style="padding: 1.2rem; font-weight: 500;">痛み</td>
+                <td style="padding: 1.2rem;">圧迫による痛みあり</td>
+                <td style="padding: 1.2rem;">痛みなし</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--gray-200);">
+                <td style="padding: 1.2rem; font-weight: 500;">被曝</td>
+                <td style="padding: 1.2rem;">わずかにあり</td>
+                <td style="padding: 1.2rem;">なし</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--gray-200);">
+                <td style="padding: 1.2rem; font-weight: 500;">推奨年齢</td>
+                <td style="padding: 1.2rem;">40歳以上</td>
+                <td style="padding: 1.2rem;">年齢制限なし</td>
+              </tr>
+              <tr>
+                <td style="padding: 1.2rem; font-weight: 500;">向いている方</td>
+                <td style="padding: 1.2rem;">脂肪の多い乳房</td>
+                <td style="padding: 1.2rem;">乳腺の発達した乳房</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div style="margin-top: 2rem; padding: 1.5rem; background: var(--pink-50); border-radius: 16px;">
+          <p style="margin: 0; color: var(--text-primary); line-height: 1.8;">
+            <strong>💡 どちらを選べばいいか迷ったら</strong><br>
+            検査当日にスタッフと相談して決めることもできます。お気軽にご相談ください。<br>
+            より正確な診断のために、両方の検査を併用することもおすすめしています。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 乳がん統計セクション -->
+  <section class="stats-section">
+    <div class="stats-content">
+      <div class="section-header">
+        <h2 class="section-title">乳がんについて知ってください</h2>
+        <p class="section-subtitle">早期発見が何より大切です</p>
+      </div>
+
+      <div class="stat-highlight">
+        <div class="stat-number">9人に1人</div>
+        <div class="stat-label">日本女性が生涯で乳がんにかかる割合</div>
+        <p class="stat-description">
+          女性のがんの中で最も多いのが乳がんです。<br>
+          しかし、早期に発見すれば90%以上が治癒するといわれています。<br>
+          定期的な検診が、あなた自身を守る第一歩です。
+        </p>
+      </div>
+
+      <div style="background: white; padding: 2.5rem; border-radius: 24px; margin-top: 2rem; text-align: center;">
+        <h3 style="margin-bottom: 1.5rem; color: var(--pink-600);">乳がんのできやすい場所</h3>
+        <p style="margin-bottom: 1rem; color: var(--text-secondary);">
+          乳房の外側上部（脇に近い部分）に最も多く発生します。<br>
+          セルフチェックの際は、この部分を特に注意して触れてみてください。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 医師紹介セクション -->
+  <section class="doctor-section">
+    <div class="section-header">
+      <h2 class="section-title">担当医師</h2>
+      <p class="section-subtitle">専門医があなたの健康を守ります</p>
+    </div>
+
+    <div class="doctor-card">
+      <div class="doctor-photo">👩‍⚕️</div>
+      <div class="doctor-info">
+        <h3>伊藤 真由子 医師</h3>
+        <ul class="credentials">
+          <li>日本乳癌学会 専門医</li>
+          <li>日本外科学会 専門医</li>
+          <li>検診マンモグラフィ読影認定医</li>
+          <li>乳癌検診超音波検査実施・判定医師</li>
+        </ul>
+        <p style="color: var(--text-secondary); line-height: 1.8;">
+          豊富な経験を持つ専門医が、一人ひとりの患者様に寄り添い、丁寧な診察を心がけています。
+          些細なことでもお気軽にご相談ください。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQセクション -->
+  <section class="faq-section">
+    <div class="section-header">
+      <h2 class="section-title">よくあるご質問</h2>
+    </div>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>マンモグラフィ検査と乳房超音波検査はどちらを受ければいいの?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          年齢や乳腺の状態によって適した検査が異なります。40歳以上の方はマンモグラフィ、40歳未満や乳腺が発達している方は超音波がおすすめです。検査当日にスタッフと相談して決めることもできますので、お気軽にご相談ください。
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>胸の痛みが気になります</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          乳房の痛みは、生理周期に関連したホルモンの変化によるものが多いですが、中には病気が隠れている場合もあります。気になる症状がある場合は、お早めに乳腺外来を受診してください。
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>検査を受ける時の服装はどんなものがよいですか?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          上下が分かれた服装でお越しください。ワンピースなど上下がつながったものは避けていただきたいです。また、アクセサリーの着用や、制汗スプレーなども避けてください。
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>検査結果はいつわかりますか?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          乳腺外来でのマンモグラフィ検査・乳房超音波検査の結果は当日お伝えしております。病理検査が必要な場合は、結果が出るまで2週間ほどいただいております。
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>豊胸手術を受けたことがありますが、検査は受けられますか?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          豊胸術後の方はマンモグラフィ検査を受けることができませんが、超音波での検査は可能です。問診の際にお申し出ください。
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTAセクション -->
+  <section class="cta-section">
+    <div class="cta-content">
+      <h2>ご予約・お問い合わせ</h2>
+      <p>
+        気になる症状がある方、検診をご希望の方、<br>
+        まずはお気軽にお電話ください。
+      </p>
+      <div class="cta-buttons">
+        <a href="tel:0422-40-1170" class="cta-btn-primary">📞 0422-40-1170</a>
+        <a href="https://kichijyoji-ladies.com/" class="cta-btn-secondary">クリニックサイトへ</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- フッター -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-info">
+        <h4>吉祥寺レディースクリニック 乳腺外来</h4>
+        <p>〒180-0004 東京都武蔵野市吉祥寺本町</p>
+        <p>TEL: 0422-40-1170</p>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 吉祥寺レディースクリニック. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // タブ切り替え
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const targetTab = button.getAttribute('data-tab');
+        
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        tabContents.forEach(content => content.classList.remove('active'));
+        
+        button.classList.add('active');
+        document.getElementById(targetTab).classList.add('active');
+      });
+    });
+
+    // FAQ アコーディオン
+    const faqItems = document.querySelectorAll('.faq-item');
+
+    faqItems.forEach(item => {
+      const question = item.querySelector('.faq-question');
+      
+      question.addEventListener('click', () => {
+        const isActive = item.classList.contains('active');
+        
+        // 他のFAQを閉じる
+        faqItems.forEach(faq => faq.classList.remove('active'));
+        
+        // クリックされたFAQをトグル
+        if (!isActive) {
+          item.classList.add('active');
+        }
+      });
+    });
+
+    // スムーズスクロール
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
 </body>
 </html>
