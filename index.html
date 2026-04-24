@@ -48,10 +48,112 @@
       overflow-x: hidden;
     }
 
+    body.locked {
+      overflow: hidden;
+    }
+
     h1, h2, h3, h4 {
       font-family: 'Zen Maru Gothic', sans-serif;
       font-weight: 500;
       line-height: 1.4;
+    }
+
+    /* 認証オーバーレイ */
+    #auth-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--pink-50), var(--rose-50));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    #auth-overlay.hidden {
+      display: none;
+    }
+
+    .auth-box {
+      background: white;
+      padding: 3rem;
+      border-radius: 24px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+    }
+
+    .auth-box h2 {
+      color: var(--pink-600);
+      margin-bottom: 1rem;
+      font-size: 1.8rem;
+    }
+
+    .auth-box p {
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      font-size: 0.95rem;
+    }
+
+    .auth-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .auth-input {
+      padding: 1rem;
+      border: 2px solid var(--pink-200);
+      border-radius: 12px;
+      font-size: 1rem;
+      font-family: 'Noto Sans JP', sans-serif;
+      transition: border-color 0.3s ease;
+    }
+
+    .auth-input:focus {
+      outline: none;
+      border-color: var(--pink-500);
+    }
+
+    .auth-button {
+      padding: 1rem;
+      background: linear-gradient(135deg, var(--pink-500), var(--pink-600));
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Zen Maru Gothic', sans-serif;
+    }
+
+    .auth-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(225, 86, 106, 0.3);
+    }
+
+    .auth-error {
+      color: #dc2626;
+      font-size: 0.9rem;
+      margin-top: 1rem;
+      display: none;
+    }
+
+    .auth-error.show {
+      display: block;
+    }
+
+    /* メインコンテンツは最初非表示 */
+    #main-content {
+      display: none;
+    }
+
+    #main-content.visible {
+      display: block;
     }
 
     /* ヘッダー */
@@ -669,350 +771,426 @@
       .cta-btn-primary, .cta-btn-secondary {
         width: 100%;
       }
+
+      .auth-box {
+        padding: 2rem;
+      }
     }
   </style>
 </head>
-<body>
-  <!-- ヘッダー -->
-  <header class="header">
-    <div class="header-content">
-      <div class="logo">吉祥寺レディースクリニック 乳腺外来</div>
-      <a href="tel:0422-40-1170" class="cta-button">📞 予約・お問い合わせ</a>
-    </div>
-  </header>
-
-  <!-- ヒーローセクション -->
-  <section class="hero">
-    <div class="hero-content">
-      <h1>気になる胸の違和感、<br>一人で抱えないでください</h1>
-      <p class="hero-subtitle">
-        女性医師・女性技師が、あなたの不安に寄り添います。<br>
-        些細なことでもお気軽にご相談ください。
-      </p>
-
-      <div class="hero-features">
-        <div class="feature-card">
-          <div class="feature-icon">👩‍⚕️</div>
-          <h3>全て女性スタッフ</h3>
-          <p>医師から検査技師まで、すべて女性スタッフが対応。デリケートな検査も安心して受けられます。</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">🏥</div>
-          <h3>当日結果説明</h3>
-          <p>マンモグラフィ・超音波検査の結果は当日お伝えします。不安な待ち時間を最小限に。</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">💝</div>
-          <h3>専門医による診療</h3>
-          <p>日本乳癌学会専門医、検診マンモグラフィ読影認定医が丁寧に診察いたします。</p>
-        </div>
+<body class="locked">
+  <!-- 認証オーバーレイ -->
+  <div id="auth-overlay">
+    <div class="auth-box">
+      <h2>🔒 プレビュー認証</h2>
+      <p>このページはプレビュー版です。<br>ユーザー名とパスワードを入力してください。</p>
+      <form class="auth-form" id="auth-form">
+        <input 
+          type="text" 
+          id="username" 
+          class="auth-input" 
+          placeholder="ユーザー名"
+          autocomplete="username"
+          required
+        >
+        <input 
+          type="password" 
+          id="password" 
+          class="auth-input" 
+          placeholder="パスワード"
+          autocomplete="current-password"
+          required
+        >
+        <button type="submit" class="auth-button">ログイン</button>
+      </form>
+      <div class="auth-error" id="auth-error">
+        ユーザー名またはパスワードが正しくありません
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- 検査内容タブセクション -->
-  <section class="tabs-section">
-    <div class="section-header">
-      <h2 class="section-title">検査について</h2>
-      <p class="section-subtitle">あなたに合った検査方法をご提案します</p>
-    </div>
-
-    <div class="tabs">
-      <button class="tab-button active" data-tab="mammography">マンモグラフィ</button>
-      <button class="tab-button" data-tab="ultrasound">乳房超音波（エコー）</button>
-      <button class="tab-button" data-tab="comparison">検査の比較</button>
-    </div>
-
-    <div class="tab-content active" id="mammography">
-      <div class="exam-content">
-        <h3 style="margin-bottom: 1.5rem; font-size: 1.5rem; color: var(--pink-600);">マンモグラフィ検査</h3>
-        <p style="margin-bottom: 2rem; line-height: 1.8;">
-          乳房専用のX線検査です。触診ではわからない小さな病変や、石灰化を発見することができます。
-        </p>
-
-        <div class="exam-grid">
-          <div class="exam-item">
-            <h4>検査方法</h4>
-            <ul>
-              <li>上半身は検査着に着替え</li>
-              <li>片方ずつ乳房を撮影台に乗せる</li>
-              <li>圧迫板で乳房を圧迫して撮影</li>
-              <li>左右各2方向ずつ撮影</li>
-            </ul>
-          </div>
-
-          <div class="exam-item">
-            <h4>痛みについて</h4>
-            <ul>
-              <li>個人差がありますが、圧迫時に痛みを伴うことがあります</li>
-              <li>生理後1週間頃が最も痛みが少ない時期</li>
-              <li>リラックスすることで痛みを軽減できます</li>
-              <li>圧迫時間は数秒程度と短いです</li>
-            </ul>
-          </div>
-
-          <div class="exam-item">
-            <h4>こんな方におすすめ</h4>
-            <ul>
-              <li>40歳以上の方</li>
-              <li>石灰化の有無を確認したい方</li>
-              <li>乳がん検診を受けたい方</li>
-              <li>家族歴のある方</li>
-            </ul>
-          </div>
-        </div>
-
-        <div style="margin-top: 2rem; padding: 1.5rem; background: var(--pink-50); border-radius: 16px; border-left: 4px solid var(--pink-500);">
-          <p style="margin: 0; color: var(--text-primary);">
-            <strong>※ 注意事項：</strong>豊胸術後の方はマンモグラフィ検査を受けることができません。超音波での検査が可能です。
-          </p>
-        </div>
+  <!-- メインコンテンツ -->
+  <div id="main-content">
+    <!-- ヘッダー -->
+    <header class="header">
+      <div class="header-content">
+        <div class="logo">吉祥寺レディースクリニック 乳腺外来</div>
+        <a href="tel:0422-40-1170" class="cta-button">📞 予約・お問い合わせ</a>
       </div>
-    </div>
+    </header>
 
-    <div class="tab-content" id="ultrasound">
-      <div class="exam-content">
-        <h3 style="margin-bottom: 1.5rem; font-size: 1.5rem; color: var(--pink-600);">乳房超音波（エコー）検査</h3>
-        <p style="margin-bottom: 2rem; line-height: 1.8;">
-          超音波で乳房内部を画像化する検査です。被曝がなく、痛みもありません。若い方や乳腺が発達している方に特に有効です。
-        </p>
-
-        <div class="exam-grid">
-          <div class="exam-item">
-            <h4>検査方法</h4>
-            <ul>
-              <li>上半身を脱いでベッドに仰向けになります</li>
-              <li>乳房に専用のゼリーを塗布</li>
-              <li>探触子（プローブ）を当てて検査</li>
-              <li>リアルタイムで観察できます</li>
-            </ul>
-          </div>
-
-          <div class="exam-item">
-            <h4>安全性</h4>
-            <ul>
-              <li>被爆の心配がありません</li>
-              <li>痛みは全くありません</li>
-              <li>妊娠中でも受けられます</li>
-              <li>繰り返し検査ができます</li>
-            </ul>
-          </div>
-
-          <div class="exam-item">
-            <h4>こんな方におすすめ</h4>
-            <ul>
-              <li>40歳未満の方</li>
-              <li>乳腺が発達している方</li>
-              <li>痛みが心配な方</li>
-              <li>妊娠中・授乳中の方</li>
-            </ul>
-          </div>
-        </div>
-
-        <div style="margin-top: 2rem; padding: 1.5rem; background: var(--rose-50); border-radius: 16px; border-left: 4px solid var(--pink-500);">
-          <p style="margin: 0; color: var(--text-primary);">
-            <strong>結果説明：</strong>乳腺外来でのマンモグラフィ検査・乳房超音波検査の結果は当日お伝えしております。
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <div class="tab-content" id="comparison">
-      <div class="exam-content">
-        <h3 style="margin-bottom: 1.5rem; font-size: 1.5rem; color: var(--pink-600);">マンモグラフィと超音波の比較</h3>
-        
-        <div style="overflow-x: auto;">
-          <table style="width: 100%; border-collapse: collapse; margin-top: 2rem; background: white; border-radius: 12px; overflow: hidden;">
-            <thead>
-              <tr style="background: linear-gradient(135deg, var(--pink-500), var(--pink-600)); color: white;">
-                <th style="padding: 1.2rem; text-align: left; font-weight: 500;">項目</th>
-                <th style="padding: 1.2rem; text-align: left; font-weight: 500;">マンモグラフィ</th>
-                <th style="padding: 1.2rem; text-align: left; font-weight: 500;">乳房超音波</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr style="border-bottom: 1px solid var(--gray-200);">
-                <td style="padding: 1.2rem; font-weight: 500;">得意な検査</td>
-                <td style="padding: 1.2rem;">石灰化の検出</td>
-                <td style="padding: 1.2rem;">しこりの検出</td>
-              </tr>
-              <tr style="border-bottom: 1px solid var(--gray-200);">
-                <td style="padding: 1.2rem; font-weight: 500;">痛み</td>
-                <td style="padding: 1.2rem;">圧迫による痛みあり</td>
-                <td style="padding: 1.2rem;">痛みなし</td>
-              </tr>
-              <tr style="border-bottom: 1px solid var(--gray-200);">
-                <td style="padding: 1.2rem; font-weight: 500;">被曝</td>
-                <td style="padding: 1.2rem;">わずかにあり</td>
-                <td style="padding: 1.2rem;">なし</td>
-              </tr>
-              <tr style="border-bottom: 1px solid var(--gray-200);">
-                <td style="padding: 1.2rem; font-weight: 500;">推奨年齢</td>
-                <td style="padding: 1.2rem;">40歳以上</td>
-                <td style="padding: 1.2rem;">年齢制限なし</td>
-              </tr>
-              <tr>
-                <td style="padding: 1.2rem; font-weight: 500;">向いている方</td>
-                <td style="padding: 1.2rem;">脂肪の多い乳房</td>
-                <td style="padding: 1.2rem;">乳腺の発達した乳房</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div style="margin-top: 2rem; padding: 1.5rem; background: var(--pink-50); border-radius: 16px;">
-          <p style="margin: 0; color: var(--text-primary); line-height: 1.8;">
-            <strong>💡 どちらを選べばいいか迷ったら</strong><br>
-            検査当日にスタッフと相談して決めることもできます。お気軽にご相談ください。<br>
-            より正確な診断のために、両方の検査を併用することもおすすめしています。
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 乳がん統計セクション -->
-  <section class="stats-section">
-    <div class="stats-content">
-      <div class="section-header">
-        <h2 class="section-title">乳がんについて知ってください</h2>
-        <p class="section-subtitle">早期発見が何より大切です</p>
-      </div>
-
-      <div class="stat-highlight">
-        <div class="stat-number">9人に1人</div>
-        <div class="stat-label">日本女性が生涯で乳がんにかかる割合</div>
-        <p class="stat-description">
-          女性のがんの中で最も多いのが乳がんです。<br>
-          しかし、早期に発見すれば90%以上が治癒するといわれています。<br>
-          定期的な検診が、あなた自身を守る第一歩です。
-        </p>
-      </div>
-
-      <div style="background: white; padding: 2.5rem; border-radius: 24px; margin-top: 2rem; text-align: center;">
-        <h3 style="margin-bottom: 1.5rem; color: var(--pink-600);">乳がんのできやすい場所</h3>
-        <p style="margin-bottom: 1rem; color: var(--text-secondary);">
-          乳房の外側上部（脇に近い部分）に最も多く発生します。<br>
-          セルフチェックの際は、この部分を特に注意して触れてみてください。
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- 医師紹介セクション -->
-  <section class="doctor-section">
-    <div class="section-header">
-      <h2 class="section-title">担当医師</h2>
-      <p class="section-subtitle">専門医があなたの健康を守ります</p>
-    </div>
-
-    <div class="doctor-card">
-      <div class="doctor-photo">👩‍⚕️</div>
-      <div class="doctor-info">
-        <h3>伊藤 真由子 医師</h3>
-        <ul class="credentials">
-          <li>日本乳癌学会 専門医</li>
-          <li>日本外科学会 専門医</li>
-          <li>検診マンモグラフィ読影認定医</li>
-          <li>乳癌検診超音波検査実施・判定医師</li>
-        </ul>
-        <p style="color: var(--text-secondary); line-height: 1.8;">
-          豊富な経験を持つ専門医が、一人ひとりの患者様に寄り添い、丁寧な診察を心がけています。
+    <!-- ヒーローセクション -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>気になる胸の違和感、<br>一人で抱えないでください</h1>
+        <p class="hero-subtitle">
+          女性医師・女性技師が、あなたの不安に寄り添います。<br>
           些細なことでもお気軽にご相談ください。
         </p>
+
+        <div class="hero-features">
+          <div class="feature-card">
+            <div class="feature-icon">👩‍⚕️</div>
+            <h3>全て女性スタッフ</h3>
+            <p>医師から検査技師まで、すべて女性スタッフが対応。デリケートな検査も安心して受けられます。</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🏥</div>
+            <h3>当日結果説明</h3>
+            <p>マンモグラフィ・超音波検査の結果は当日お伝えします。不安な待ち時間を最小限に。</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">💝</div>
+            <h3>専門医による診療</h3>
+            <p>日本乳癌学会専門医、検診マンモグラフィ読影認定医が丁寧に診察いたします。</p>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- FAQセクション -->
-  <section class="faq-section">
-    <div class="section-header">
-      <h2 class="section-title">よくあるご質問</h2>
-    </div>
-
-    <div class="faq-list">
-      <div class="faq-item">
-        <div class="faq-question">
-          <span>マンモグラフィ検査と乳房超音波検査はどちらを受ければいいの?</span>
-          <span class="faq-icon">+</span>
-        </div>
-        <div class="faq-answer">
-          年齢や乳腺の状態によって適した検査が異なります。40歳以上の方はマンモグラフィ、40歳未満や乳腺が発達している方は超音波がおすすめです。検査当日にスタッフと相談して決めることもできますので、お気軽にご相談ください。
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-question">
-          <span>胸の痛みが気になります</span>
-          <span class="faq-icon">+</span>
-        </div>
-        <div class="faq-answer">
-          乳房の痛みは、生理周期に関連したホルモンの変化によるものが多いですが、中には病気が隠れている場合もあります。気になる症状がある場合は、お早めに乳腺外来を受診してください。
-        </div>
+    <!-- 検査内容タブセクション -->
+    <section class="tabs-section">
+      <div class="section-header">
+        <h2 class="section-title">検査について</h2>
+        <p class="section-subtitle">あなたに合った検査方法をご提案します</p>
       </div>
 
-      <div class="faq-item">
-        <div class="faq-question">
-          <span>検査を受ける時の服装はどんなものがよいですか?</span>
-          <span class="faq-icon">+</span>
-        </div>
-        <div class="faq-answer">
-          上下が分かれた服装でお越しください。ワンピースなど上下がつながったものは避けていただきたいです。また、アクセサリーの着用や、制汗スプレーなども避けてください。
+      <div class="tabs">
+        <button class="tab-button active" data-tab="mammography">マンモグラフィ</button>
+        <button class="tab-button" data-tab="ultrasound">乳房超音波(エコー)</button>
+        <button class="tab-button" data-tab="comparison">検査の比較</button>
+      </div>
+
+      <div class="tab-content active" id="mammography">
+        <div class="exam-content">
+          <h3 style="margin-bottom: 1.5rem; font-size: 1.5rem; color: var(--pink-600);">マンモグラフィ検査</h3>
+          <p style="margin-bottom: 2rem; line-height: 1.8;">
+            乳房専用のX線検査です。触診ではわからない小さな病変や、石灰化を発見することができます。
+          </p>
+
+          <div class="exam-grid">
+            <div class="exam-item">
+              <h4>検査方法</h4>
+              <ul>
+                <li>上半身は検査着に着替え</li>
+                <li>片方ずつ乳房を撮影台に乗せる</li>
+                <li>圧迫板で乳房を圧迫して撮影</li>
+                <li>左右各2方向ずつ撮影</li>
+              </ul>
+            </div>
+
+            <div class="exam-item">
+              <h4>痛みについて</h4>
+              <ul>
+                <li>個人差がありますが、圧迫時に痛みを伴うことがあります</li>
+                <li>生理後1週間頃が最も痛みが少ない時期</li>
+                <li>リラックスすることで痛みを軽減できます</li>
+                <li>圧迫時間は数秒程度と短いです</li>
+              </ul>
+            </div>
+
+            <div class="exam-item">
+              <h4>こんな方におすすめ</h4>
+              <ul>
+                <li>40歳以上の方</li>
+                <li>石灰化の有無を確認したい方</li>
+                <li>乳がん検診を受けたい方</li>
+                <li>家族歴のある方</li>
+              </ul>
+            </div>
+          </div>
+
+          <div style="margin-top: 2rem; padding: 1.5rem; background: var(--pink-50); border-radius: 16px; border-left: 4px solid var(--pink-500);">
+            <p style="margin: 0; color: var(--text-primary);">
+              <strong>※ 注意事項：</strong>豊胸術後の方はマンモグラフィ検査を受けることができません。超音波での検査が可能です。
+            </p>
+          </div>
         </div>
       </div>
 
-      <div class="faq-item">
-        <div class="faq-question">
-          <span>検査結果はいつわかりますか?</span>
-          <span class="faq-icon">+</span>
-        </div>
-        <div class="faq-answer">
-          乳腺外来でのマンモグラフィ検査・乳房超音波検査の結果は当日お伝えしております。病理検査が必要な場合は、結果が出るまで2週間ほどいただいております。
+      <div class="tab-content" id="ultrasound">
+        <div class="exam-content">
+          <h3 style="margin-bottom: 1.5rem; font-size: 1.5rem; color: var(--pink-600);">乳房超音波(エコー)検査</h3>
+          <p style="margin-bottom: 2rem; line-height: 1.8;">
+            超音波で乳房内部を画像化する検査です。被曝がなく、痛みもありません。若い方や乳腺が発達している方に特に有効です。
+          </p>
+
+          <div class="exam-grid">
+            <div class="exam-item">
+              <h4>検査方法</h4>
+              <ul>
+                <li>上半身を脱いでベッドに仰向けになります</li>
+                <li>乳房に専用のゼリーを塗布</li>
+                <li>探触子(プローブ)を当てて検査</li>
+                <li>リアルタイムで観察できます</li>
+              </ul>
+            </div>
+
+            <div class="exam-item">
+              <h4>安全性</h4>
+              <ul>
+                <li>被爆の心配がありません</li>
+                <li>痛みは全くありません</li>
+                <li>妊娠中でも受けられます</li>
+                <li>繰り返し検査ができます</li>
+              </ul>
+            </div>
+
+            <div class="exam-item">
+              <h4>こんな方におすすめ</h4>
+              <ul>
+                <li>40歳未満の方</li>
+                <li>乳腺が発達している方</li>
+                <li>痛みが心配な方</li>
+                <li>妊娠中・授乳中の方</li>
+              </ul>
+            </div>
+          </div>
+
+          <div style="margin-top: 2rem; padding: 1.5rem; background: var(--rose-50); border-radius: 16px; border-left: 4px solid var(--pink-500);">
+            <p style="margin: 0; color: var(--text-primary);">
+              <strong>結果説明：</strong>乳腺外来でのマンモグラフィ検査・乳房超音波検査の結果は当日お伝えしております。
+            </p>
+          </div>
         </div>
       </div>
 
-      <div class="faq-item">
-        <div class="faq-question">
-          <span>豊胸手術を受けたことがありますが、検査は受けられますか?</span>
-          <span class="faq-icon">+</span>
-        </div>
-        <div class="faq-answer">
-          豊胸術後の方はマンモグラフィ検査を受けることができませんが、超音波での検査は可能です。問診の際にお申し出ください。
-        </div>
-      </div>
-    </div>
-  </section>
+      <div class="tab-content" id="comparison">
+        <div class="exam-content">
+          <h3 style="margin-bottom: 1.5rem; font-size: 1.5rem; color: var(--pink-600);">マンモグラフィと超音波の比較</h3>
+          
+          <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; margin-top: 2rem; background: white; border-radius: 12px; overflow: hidden;">
+              <thead>
+                <tr style="background: linear-gradient(135deg, var(--pink-500), var(--pink-600)); color: white;">
+                  <th style="padding: 1.2rem; text-align: left; font-weight: 500;">項目</th>
+                  <th style="padding: 1.2rem; text-align: left; font-weight: 500;">マンモグラフィ</th>
+                  <th style="padding: 1.2rem; text-align: left; font-weight: 500;">乳房超音波</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom: 1px solid var(--gray-200);">
+                  <td style="padding: 1.2rem; font-weight: 500;">得意な検査</td>
+                  <td style="padding: 1.2rem;">石灰化の検出</td>
+                  <td style="padding: 1.2rem;">しこりの検出</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--gray-200);">
+                  <td style="padding: 1.2rem; font-weight: 500;">痛み</td>
+                  <td style="padding: 1.2rem;">圧迫による痛みあり</td>
+                  <td style="padding: 1.2rem;">痛みなし</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--gray-200);">
+                  <td style="padding: 1.2rem; font-weight: 500;">被曝</td>
+                  <td style="padding: 1.2rem;">わずかにあり</td>
+                  <td style="padding: 1.2rem;">なし</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--gray-200);">
+                  <td style="padding: 1.2rem; font-weight: 500;">推奨年齢</td>
+                  <td style="padding: 1.2rem;">40歳以上</td>
+                  <td style="padding: 1.2rem;">年齢制限なし</td>
+                </tr>
+                <tr>
+                  <td style="padding: 1.2rem; font-weight: 500;">向いている方</td>
+                  <td style="padding: 1.2rem;">脂肪の多い乳房</td>
+                  <td style="padding: 1.2rem;">乳腺の発達した乳房</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
-  <!-- CTAセクション -->
-  <section class="cta-section">
-    <div class="cta-content">
-      <h2>ご予約・お問い合わせ</h2>
-      <p>
-        気になる症状がある方、検診をご希望の方、<br>
-        まずはお気軽にお電話ください。
-      </p>
-      <div class="cta-buttons">
-        <a href="tel:0422-40-1170" class="cta-btn-primary">📞 0422-40-1170</a>
-        <a href="https://kichijyoji-ladies.com/" class="cta-btn-secondary">クリニックサイトへ</a>
+          <div style="margin-top: 2rem; padding: 1.5rem; background: var(--pink-50); border-radius: 16px;">
+            <p style="margin: 0; color: var(--text-primary); line-height: 1.8;">
+              <strong>💡 どちらを選べばいいか迷ったら</strong><br>
+              検査当日にスタッフと相談して決めることもできます。お気軽にご相談ください。<br>
+              より正確な診断のために、両方の検査を併用することもおすすめしています。
+            </p>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- フッター -->
-  <footer class="footer">
-    <div class="footer-content">
-      <div class="footer-info">
-        <h4>吉祥寺レディースクリニック 乳腺外来</h4>
-        <p>〒180-0004 東京都武蔵野市吉祥寺本町</p>
-        <p>TEL: 0422-40-1170</p>
+    <!-- 乳がん統計セクション -->
+    <section class="stats-section">
+      <div class="stats-content">
+        <div class="section-header">
+          <h2 class="section-title">乳がんについて知ってください</h2>
+          <p class="section-subtitle">早期発見が何より大切です</p>
+        </div>
+
+        <div class="stat-highlight">
+          <div class="stat-number">9人に1人</div>
+          <div class="stat-label">日本女性が生涯で乳がんにかかる割合</div>
+          <p class="stat-description">
+            女性のがんの中で最も多いのが乳がんです。<br>
+            しかし、早期に発見すれば90%以上が治癒するといわれています。<br>
+            定期的な検診が、あなた自身を守る第一歩です。
+          </p>
+        </div>
+
+        <div style="background: white; padding: 2.5rem; border-radius: 24px; margin-top: 2rem; text-align: center;">
+          <h3 style="margin-bottom: 1.5rem; color: var(--pink-600);">乳がんのできやすい場所</h3>
+          <p style="margin-bottom: 1rem; color: var(--text-secondary);">
+            乳房の外側上部(脇に近い部分)に最も多く発生します。<br>
+            セルフチェックの際は、この部分を特に注意して触れてみてください。
+          </p>
+        </div>
       </div>
-      <div class="footer-bottom">
-        <p>&copy; 2025 吉祥寺レディースクリニック. All rights reserved.</p>
+    </section>
+
+    <!-- 医師紹介セクション -->
+    <section class="doctor-section">
+      <div class="section-header">
+        <h2 class="section-title">担当医師</h2>
+        <p class="section-subtitle">専門医があなたの健康を守ります</p>
       </div>
-    </div>
-  </footer>
+
+      <div class="doctor-card">
+        <div class="doctor-photo">👩‍⚕️</div>
+        <div class="doctor-info">
+          <h3>伊藤 真由子 医師</h3>
+          <ul class="credentials">
+            <li>日本乳癌学会 専門医</li>
+            <li>日本外科学会 専門医</li>
+            <li>検診マンモグラフィ読影認定医</li>
+            <li>乳癌検診超音波検査実施・判定医師</li>
+          </ul>
+          <p style="color: var(--text-secondary); line-height: 1.8;">
+            豊富な経験を持つ専門医が、一人ひとりの患者様に寄り添い、丁寧な診察を心がけています。
+            些細なことでもお気軽にご相談ください。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQセクション -->
+    <section class="faq-section">
+      <div class="section-header">
+        <h2 class="section-title">よくあるご質問</h2>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>マンモグラフィ検査と乳房超音波検査はどちらを受ければいいの?</span>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            年齢や乳腺の状態によって適した検査が異なります。40歳以上の方はマンモグラフィ、40歳未満や乳腺が発達している方は超音波がおすすめです。検査当日にスタッフと相談して決めることもできますので、お気軽にご相談ください。
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>胸の痛みが気になります</span>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            乳房の痛みは、生理周期に関連したホルモンの変化によるものが多いですが、中には病気が隠れている場合もあります。気になる症状がある場合は、お早めに乳腺外来を受診してください。
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>検査を受ける時の服装はどんなものがよいですか?</span>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            上下が分かれた服装でお越しください。ワンピースなど上下がつながったものは避けていただきたいです。また、アクセサリーの着用や、制汗スプレーなども避けてください。
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>検査結果はいつわかりますか?</span>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            乳腺外来でのマンモグラフィ検査・乳房超音波検査の結果は当日お伝えしております。病理検査が必要な場合は、結果が出るまで2週間ほどいただいております。
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>豊胸手術を受けたことがありますが、検査は受けられますか?</span>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            豊胸術後の方はマンモグラフィ検査を受けることができませんが、超音波での検査は可能です。問診の際にお申し出ください。
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTAセクション -->
+    <section class="cta-section">
+      <div class="cta-content">
+        <h2>ご予約・お問い合わせ</h2>
+        <p>
+          気になる症状がある方、検診をご希望の方、<br>
+          まずはお気軽にお電話ください。
+        </p>
+        <div class="cta-buttons">
+          <a href="tel:0422-40-1170" class="cta-btn-primary">📞 0422-40-1170</a>
+          <a href="https://kichijyoji-ladies.com/" class="cta-btn-secondary">クリニックサイトへ</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- フッター -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-info">
+          <h4>吉祥寺レディースクリニック 乳腺外来</h4>
+          <p>〒180-0004 東京都武蔵野市吉祥寺本町</p>
+          <p>TEL: 0422-40-1170</p>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 吉祥寺レディースクリニック. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </div>
 
   <script>
+    // 認証情報（本番環境では環境変数やサーバーサイドで管理してください）
+    const VALID_USERNAME = 'kichijoji';
+    const VALID_PASSWORD = 'breast2025';
+
+    // セッションストレージでログイン状態を確認
+    if (sessionStorage.getItem('authenticated') === 'true') {
+      showMainContent();
+    }
+
+    // 認証フォームの送信処理
+    document.getElementById('auth-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const errorDiv = document.getElementById('auth-error');
+      
+      if (username === VALID_USERNAME && password === VALID_PASSWORD) {
+        // 認証成功
+        sessionStorage.setItem('authenticated', 'true');
+        showMainContent();
+      } else {
+        // 認証失敗
+        errorDiv.classList.add('show');
+        document.getElementById('password').value = '';
+        
+        // 3秒後にエラーメッセージを非表示
+        setTimeout(() => {
+          errorDiv.classList.remove('show');
+        }, 3000);
+      }
+    });
+
+    function showMainContent() {
+      document.getElementById('auth-overlay').classList.add('hidden');
+      document.getElementById('main-content').classList.add('visible');
+      document.body.classList.remove('locked');
+    }
+
     // タブ切り替え
     const tabButtons = document.querySelectorAll('.tab-button');
     const tabContents = document.querySelectorAll('.tab-content');
