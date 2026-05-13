@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>案C — 無彩色×アーチ×Cormorant（BLINC系） | 乳腺外来LP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Cabin:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin></script>
+<style>
+  html, body { margin: 0; padding: 0; }
+</style>
+</head>
+<body>
+<script>if(sessionStorage.getItem("lp_review_auth")!=="1"){location.href="index.html";}</script><div id="root"></div>
+<script type="text/babel">
+/* Variant C — BLINC系: 無彩色 × 270pxアーチ × 5pxボーダー × Cormorant×Cabin */
+const VariantC = () => {
+  const { useState } = React;
+  const [tab, setTab] = useState('mammo');
+  const [openFaq, setOpenFaq] = useState(0);
+
+  return (
+    <div className="vc-root">
+      <style>{`
+      .vc-root {
+        --char: #484242;
+        --bg: #FDFBFA;
+        --grayge: #F4F1EF;
+        --rose: #DFA3A3;
+        --line: #484242;
+        --serif: 'Cormorant Garamond', 'Noto Serif JP', serif;
+        --sans: 'Cabin', sans-serif;
+        --jp: 'Noto Sans JP', sans-serif;
+        background: var(--bg);
+        color: var(--char);
+        font-family: var(--jp);
+        line-height: 1.9;
+      }
+      .vc-root * { box-sizing: border-box; }
+
+      .vc-header {
+        position: sticky; top: 0; z-index: 10;
+        background: var(--bg);
+        padding: 18px 48px;
+        display: flex; align-items: center; justify-content: space-between;
+        border-bottom: 1px solid rgba(72,66,66,0.1);
+      }
+      .vc-logo { font-family: var(--serif); font-size: 18px; font-weight: 400; letter-spacing: 0.06em; }
+      .vc-logo small { display: block; font-family: var(--jp); font-size: 11px; color: rgba(72,66,66,0.6); margin-top: 0; }
+      .vc-nav { display: flex; gap: 28px; }
+      .vc-nav a { font-family: var(--sans); font-size: 12px; color: var(--char); letter-spacing: 0.06em; }
+      .vc-cta-h { display: inline-block; padding: 8px 20px; background: var(--char); color: var(--bg); font-family: var(--sans); font-size: 12px; border-radius: 4px; letter-spacing: 0.05em; border: 2px solid var(--char); }
+
+      /* HERO with arch */
+      .vc-hero {
+        position: relative;
+        background: var(--char);
+        padding: 80px 48px 0;
+        overflow: hidden;
+      }
+      .vc-hero-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; padding-bottom: 100px; }
+      .vc-hero-eyebrow { font-family: var(--serif); font-style: italic; font-size: 18px; color: var(--rose); letter-spacing: 0.1em; margin-bottom: 28px; }
+      .vc-hero-title-en { font-family: var(--serif); font-size: 86px; font-weight: 400; line-height: 1.05; color: var(--bg); letter-spacing: 0.02em; margin-bottom: 8px; }
+      .vc-hero-title-en em { font-style: italic; }
+      .vc-hero-title-jp { font-family: var(--jp); font-size: 22px; font-weight: 500; color: var(--bg); letter-spacing: 0.08em; line-height: 1.7; margin-top: 24px; margin-bottom: 36px; }
+      .vc-hero-sub { font-size: 14px; line-height: 2.1; color: rgba(253,251,250,0.75); max-width: 480px; margin-bottom: 48px; }
+      .vc-hero-actions { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; }
+      .vc-btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 30px; background: transparent; color: var(--bg); border: 2px solid var(--bg); border-radius: 4px; font-family: var(--sans); font-size: 13px; letter-spacing: 0.1em; cursor: pointer; transition: all 0.3s; }
+      .vc-btn:hover { background: var(--bg); color: var(--char); }
+      .vc-btn-light { background: var(--bg); color: var(--char); border-color: var(--bg); }
+      .vc-btn-light:hover { background: transparent; color: var(--bg); }
+      .vc-tel-h { font-family: var(--serif); font-size: 28px; color: var(--bg); letter-spacing: 0.04em; }
+      .vc-tel-h small { display: block; font-family: var(--sans); font-size: 11px; color: rgba(253,251,250,0.6); }
+      .vc-hero-img {
+        position: relative;
+        height: 540px;
+        background: repeating-linear-gradient(135deg, #6B5C5C 0 12px, #5A4F4F 12px 24px);
+        border: 4px solid var(--bg);
+        border-radius: 8px;
+        display: flex; align-items: flex-end; justify-content: flex-end;
+        padding: 24px;
+      }
+      .vc-img-tag { font-family: 'SF Mono', monospace; font-size: 10px; background: var(--bg); color: var(--char); padding: 6px 12px; border-radius: 4px; }
+
+      /* ARCH SECTION */
+      .vc-arch-section {
+        background: var(--grayge);
+        border-radius: 270px 270px 0 0;
+        margin-top: -1px;
+        padding: 100px 48px 80px;
+        border-bottom: 5px solid var(--char);
+      }
+      .vc-section { padding: 96px 48px; border-bottom: 5px solid var(--char); position: relative; }
+      .vc-section.bg { background: var(--grayge); }
+      .vc-inner { max-width: 1200px; margin: 0 auto; }
+      .vc-eyebrow-en { font-family: var(--serif); font-size: 14px; font-style: italic; color: var(--rose); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px; }
+      .vc-title-en { font-family: var(--serif); font-size: 56px; font-weight: 400; line-height: 1.1; letter-spacing: 0.02em; margin-bottom: 8px; }
+      .vc-title-jp { font-family: var(--jp); font-size: 16px; font-weight: 500; color: rgba(72,66,66,0.7); letter-spacing: 0.1em; margin-bottom: 32px; }
+      .vc-desc { font-size: 14px; line-height: 2.1; max-width: 560px; }
+
+      /* ABOUT */
+      .vc-about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; margin-top: 48px; align-items: center; }
+      .vc-about-text { font-size: 15px; line-height: 2.3; }
+      .vc-about-text em { font-style: normal; border-bottom: 1px solid var(--rose); padding-bottom: 1px; font-weight: 500; }
+      .vc-about-card {
+        height: 380px;
+        background: repeating-linear-gradient(135deg, #ECE4DF 0 12px, #DBD3CE 12px 24px);
+        border: 3px solid var(--char);
+        display: flex; align-items: center; justify-content: center;
+      }
+      .vc-card-tag { font-family: 'SF Mono', monospace; font-size: 11px; background: var(--char); color: var(--bg); padding: 6px 12px; border-radius: 2px; }
+
+      /* FEATURES */
+      .vc-feat-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 0; margin-top: 56px; border: 3px solid var(--char); }
+      .vc-feat-card { padding: 36px 28px; border-right: 3px solid var(--char); background: var(--bg); }
+      .vc-feat-card:last-child { border-right: none; }
+      .vc-feat-num { font-family: var(--serif); font-style: italic; font-size: 64px; color: var(--rose); line-height: 1; margin-bottom: 16px; }
+      .vc-feat-title { font-family: var(--serif); font-size: 22px; font-weight: 500; color: var(--char); margin-bottom: 6px; line-height: 1.3; }
+      .vc-feat-title-jp { font-family: var(--jp); font-size: 14px; font-weight: 500; margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid rgba(72,66,66,0.2); }
+      .vc-feat-text { font-size: 12.5px; line-height: 2; color: rgba(72,66,66,0.8); }
+
+      /* DOCTOR */
+      .vc-doc-grid { display: grid; grid-template-columns: 320px 1fr; gap: 56px; margin-top: 48px; }
+      .vc-doc-photo { width: 300px; height: 380px; background: repeating-linear-gradient(135deg, #ECE4DF 0 12px, #DBD3CE 12px 24px); border: 3px solid var(--char); display: flex; align-items: center; justify-content: center; }
+      .vc-doc-name-en { font-family: var(--serif); font-style: italic; font-size: 38px; line-height: 1.1; color: var(--char); margin-bottom: 4px; }
+      .vc-doc-name-jp { font-family: var(--jp); font-size: 16px; font-weight: 500; margin-bottom: 28px; padding-bottom: 24px; border-bottom: 5px solid var(--char); }
+      .vc-doc-quals { list-style: none; padding: 0; margin: 0 0 28px; }
+      .vc-doc-quals li { font-family: var(--sans); font-size: 13px; padding: 10px 0; border-bottom: 1px solid rgba(72,66,66,0.15); }
+      .vc-doc-quals li::before { content: '— '; color: var(--rose); }
+      .vc-doc-msg { font-size: 14px; line-height: 2.2; padding: 24px 28px; background: var(--grayge); border: 3px solid var(--char); position: relative; }
+
+      /* TABS */
+      .vc-tabs { display: flex; margin-top: 48px; }
+      .vc-tab {
+        background: var(--grayge); border: 3px solid var(--char);
+        padding: 14px 32px; font-family: var(--sans); font-size: 14px;
+        cursor: pointer; color: var(--char); border-radius: 0 12px 0 0;
+        margin-right: -3px; transition: all 0.3s;
+        font-weight: 500;
+      }
+      .vc-tab:first-child { border-radius: 12px 0 0 0; }
+      .vc-tab.active { background: var(--char); color: var(--bg); }
+      .vc-panel-wrap { background: var(--bg); border: 3px solid var(--char); border-top: none; padding: 44px 36px; }
+      .vc-panel { display: none; }
+      .vc-panel.active { display: block; }
+      .vc-panel-head { display: flex; align-items: center; gap: 20px; margin-bottom: 32px; padding-bottom: 24px; border-bottom: 5px solid var(--char); }
+      .vc-panel-icon { width: 64px; height: 64px; border-radius: 50%; background: var(--char); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-style: italic; font-size: 28px; color: var(--bg); }
+      .vc-panel-title { font-family: var(--serif); font-size: 28px; font-weight: 400; }
+      .vc-panel-sub { font-family: var(--sans); font-size: 12px; color: rgba(72,66,66,0.6); margin-top: 2px; letter-spacing: 0.08em; }
+      .vc-detail { margin-bottom: 28px; }
+      .vc-detail-label { font-family: var(--serif); font-style: italic; font-size: 18px; color: var(--rose); margin-bottom: 12px; }
+      .vc-detail ul { list-style: none; padding: 0; margin: 0; }
+      .vc-detail ul li { font-size: 14px; line-height: 2; padding-left: 20px; position: relative; }
+      .vc-detail ul li::before { content: '—'; position: absolute; left: 0; color: var(--rose); }
+      .vc-pain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+      .vc-pain-card { background: var(--grayge); border: 1px solid rgba(72,66,66,0.2); padding: 22px 24px; }
+      .vc-pain-card b { display: block; font-family: var(--serif); font-style: italic; font-size: 15px; color: var(--char); margin-bottom: 8px; }
+      .vc-pain-card p { font-size: 13px; line-height: 1.95; margin: 0; }
+
+      .vc-comp { margin-top: 48px; }
+      .vc-comp h3 { font-family: var(--serif); font-size: 26px; margin-bottom: 20px; }
+      .vc-comp table { width: 100%; border-collapse: collapse; border: 3px solid var(--char); }
+      .vc-comp th, .vc-comp td { padding: 14px 18px; font-size: 13px; text-align: center; border: 1px solid rgba(72,66,66,0.2); }
+      .vc-comp th { background: var(--char); color: var(--bg); font-family: var(--sans); font-weight: 500; }
+      .vc-comp td:first-child { background: var(--grayge); text-align: left; font-weight: 500; }
+
+      /* FAQ */
+      .vc-faq-list { margin-top: 48px; max-width: 880px; }
+      .vc-faq-item { border-bottom: 5px solid var(--char); }
+      .vc-faq-item:first-child { border-top: 5px solid var(--char); }
+      .vc-faq-q { display: flex; gap: 24px; align-items: center; padding: 28px 0; cursor: pointer; }
+      .vc-faq-badge { font-family: var(--serif); font-style: italic; font-size: 32px; color: var(--rose); width: 40px; }
+      .vc-faq-q-text { flex: 1; font-size: 16px; font-weight: 500; line-height: 1.6; }
+      .vc-faq-toggle { font-family: var(--serif); font-size: 24px; transition: transform 0.3s; }
+      .vc-faq-item.open .vc-faq-toggle { transform: rotate(45deg); }
+      .vc-faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s; }
+      .vc-faq-item.open .vc-faq-a { max-height: 240px; }
+      .vc-faq-a-text { font-size: 14px; line-height: 2.1; padding: 0 0 28px 64px; color: rgba(72,66,66,0.8); }
+
+      /* PRICE/FLOW */
+      .vc-price-section { background: var(--bg); border: 3px solid var(--char); overflow: hidden; }
+      .vc-price-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 24px; border-bottom: 1px solid rgba(72,66,66,0.15); font-size: 14px; line-height: 1.7; gap: 24px; }
+      .vc-price-row:last-child { border-bottom: none; }
+      .vc-price-row .amt { font-family: var(--serif); font-weight: 600; color: var(--char); white-space: nowrap; font-size: 17px; }
+      .vc-price-note { font-size: 12px; color: rgba(72,66,66,0.7); margin-top: 12px; line-height: 2; }
+      .vc-exam-content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 16px; }
+      .vc-exam-content-card { background: var(--grayge); border: 3px solid var(--char); padding: 24px 22px; }
+      .vc-exam-content-card h4 { font-family: var(--serif); font-size: 17px; font-weight: 500; color: var(--char); margin: 0 0 12px; }
+      .vc-exam-content-card ul { list-style: none; padding: 0; margin: 0; }
+      .vc-exam-content-card li { font-size: 13px; line-height: 2; padding-left: 18px; position: relative; }
+      .vc-exam-content-card li::before { content: '—'; position: absolute; left: 0; color: var(--rose); }
+      .vc-steps { margin-top: 40px; }
+      .vc-step { display: flex; gap: 20px; padding-bottom: 28px; position: relative; }
+      .vc-step:not(:last-child)::after { content: ''; position: absolute; left: 22px; top: 46px; bottom: 0; width: 3px; background: var(--grayge); }
+      .vc-step-icon { width: 46px; height: 46px; border-radius: 50%; background: var(--char); color: var(--bg); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-style: italic; font-size: 20px; flex-shrink: 0; }
+      .vc-step-body { flex: 1; padding-top: 8px; }
+      .vc-step-title { font-family: var(--serif); font-size: 18px; font-weight: 500; margin-bottom: 8px; }
+      .vc-step-text { font-size: 14px; line-height: 2.05; color: rgba(72,66,66,0.8); }
+      .vc-step-note { font-size: 12px; color: rgba(72,66,66,0.7); margin-top: 6px; line-height: 1.9; }
+      .vc-notice-box { background: var(--grayge); border: 3px solid var(--char); padding: 28px 32px; margin-top: 32px; }
+      .vc-notice-list { list-style: none; padding: 0; margin: 0 0 12px; }
+      .vc-notice-list li { font-size: 14px; line-height: 2.0; padding-left: 22px; position: relative; color: var(--char); }
+      .vc-notice-list li::before { content: '—'; position: absolute; left: 0; color: var(--rose); }
+      .vc-notice-box p { font-size: 13px; color: rgba(72,66,66,0.8); margin: 0; line-height: 1.9; }
+      /* RESPONSIVE */
+      @media (max-width: 768px) {
+        .vc-header { padding: 14px 20px !important; }
+        .vc-nav { display: none !important; }
+        .vc-hero { padding: 60px 20px 0 !important; }
+        .vc-hero-grid { grid-template-columns: 1fr !important; gap: 32px !important; padding-bottom: 60px !important; }
+        .vc-hero-title-en { font-size: 52px !important; }
+        .vc-hero-img { height: 220px !important; }
+        .vc-arch-section { padding: 64px 20px 60px !important; border-radius: 120px 120px 0 0 !important; }
+        .vc-section { padding: 64px 20px !important; }
+        .vc-title-en { font-size: 36px !important; }
+        .vc-about-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+        .vc-about-card { height: 200px !important; }
+        .vc-feat-grid { grid-template-columns: 1fr 1fr !important; }
+        .vc-feat-card { padding: 20px 16px !important; }
+        .vc-feat-num { font-size: 40px !important; }
+        .vc-doc-grid { grid-template-columns: 1fr !important; }
+        .vc-doc-photo { width: 100% !important; height: 240px !important; }
+        .vc-tabs { flex-wrap: wrap !important; }
+        .vc-tab { flex: 1 1 calc(50% - 3px) !important; padding: 10px 8px !important; font-size: 12px !important; text-align: center !important; border-radius: 0 !important; }
+        .vc-panel-wrap { padding: 24px 20px !important; }
+        .vc-pain-grid { grid-template-columns: 1fr !important; }
+        .vc-comp { overflow-x: auto !important; }
+        .vc-comp table { font-size: 12px !important; white-space: nowrap !important; }
+        .vc-exam-content-grid { grid-template-columns: 1fr !important; }
+        .vc-notice-box { padding: 20px !important; }
+        .vc-foot-grid { flex-direction: column !important; gap: 24px !important; }
+        .vc-foot-links { flex-wrap: wrap !important; gap: 16px !important; }
+        .vc-cta { padding: 60px 20px !important; }
+      }
+
+      /* CTA */
+      .vc-cta { background: var(--char); color: var(--bg); text-align: center; padding: 100px 48px; border-bottom: 5px solid var(--char); }
+      .vc-cta .vc-eyebrow-en { color: var(--rose); }
+      .vc-cta .vc-title-en { color: var(--bg); }
+      .vc-cta .vc-title-jp { color: rgba(253,251,250,0.7); }
+      .vc-cta .vc-desc { color: rgba(253,251,250,0.85); margin: 0 auto; }
+      .vc-cta-tel { font-family: var(--serif); font-size: 56px; font-weight: 400; letter-spacing: 0.04em; margin-top: 32px; }
+      .vc-cta-actions { display: flex; gap: 20px; justify-content: center; margin-top: 32px; }
+
+      /* FOOTER */
+      .vc-footer { background: var(--bg); padding: 56px 48px 32px; }
+      .vc-foot-grid { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; gap: 40px; }
+      .vc-foot-logo { font-family: var(--serif); font-size: 22px; margin-bottom: 12px; }
+      .vc-foot-addr { font-size: 12px; line-height: 1.9; color: rgba(72,66,66,0.7); }
+      .vc-foot-links { display: flex; gap: 24px; }
+      .vc-foot-links a { font-family: var(--sans); font-size: 12px; color: var(--char); }
+      .vc-foot-copy { text-align: center; font-family: var(--sans); font-size: 11px; margin-top: 48px; padding-top: 20px; border-top: 1px solid rgba(72,66,66,0.15); color: rgba(72,66,66,0.5); letter-spacing: 0.08em; }
+
+      `}</style>
+
+      <header className="vc-header">
+        <div className="vc-logo">Kichijoji Ladies Clinic<small>吉祥寺レディースクリニック</small></div>
+        <nav className="vc-nav"><a>About</a><a>Strengths</a><a>Doctor</a><a>Exams</a><a>FAQ</a><a>Access</a></nav>
+        <a className="vc-cta-h">RESERVATION</a>
+      </header>
+
+      <section className="vc-hero">
+        <div className="vc-hero-grid">
+          <div>
+            <div className="vc-hero-eyebrow">— Breast Care for You</div>
+            <h1 className="vc-hero-title-en">Soft. <em>Honest.</em><br />Yours.</h1>
+            <div className="vc-hero-title-jp">やさしく、安心して。<br />乳腺のことは、わたしたちに。</div>
+            <p className="vc-hero-sub">乳房のしこり、痛み、違和感など——些細なことでも、おひとりで抱えず女性医師・女性スタッフにお話しください。</p>
+            <div className="vc-hero-actions">
+              <a className="vc-btn vc-btn-light">RESERVATION</a>
+              <div className="vc-tel-h">0422-40-1770<small>9:15-12:15 / 14:15-18:15</small></div>
+            </div>
+          </div>
+          <div className="vc-hero-img">
+            <div className="vc-img-tag">PLACEHOLDER · 院内 / 医師</div>
+          </div>
+        </div>
+      </section>
+
+      <section className="vc-arch-section">
+        <div className="vc-inner">
+          <div className="vc-eyebrow-en">— About</div>
+          <h2 className="vc-title-en">Our Mission</h2>
+          <div className="vc-title-jp">乳腺外来について</div>
+          <div className="vc-about-grid">
+            <div className="vc-about-text">
+              乳腺外来では、乳房のしこり、痛み、分泌物、違和感などの症状について、<em>女性医師・女性技師</em>が丁寧に診察・検査をいたします。<br /><br />
+              「胸のしこりが気になる」「定期検診を受けたい」など、些細な事でもお気軽にご相談ください。
+            </div>
+            <div className="vc-about-card"><div className="vc-card-tag">院内写真</div></div>
+          </div>
+        </div>
+      </section>
+
+      <section className="vc-section">
+        <div className="vc-inner">
+          <div className="vc-eyebrow-en">— Strengths</div>
+          <h2 className="vc-title-en">Why Choose Us</h2>
+          <div className="vc-title-jp">当院が選ばれる理由</div>
+          <div className="vc-feat-grid">
+            {[
+              { n: '01', t: 'Both Exams', tj: 'マンモグラフィー・超音波の両方に対応', d: 'マンモグラフィー検査・乳腺超音波検査の両方に対応しており、年齢や乳腺の状態などを考慮しながら、お一人おひとりに最適な検査方法をご案内します。' },
+              { n: '02', t: 'All Female', tj: 'すべて女性技師が担当', d: '検診はすべて女性技師が担当しているため、デリケートな部位の検査でも緊張せずリラックスしてお受けいただける環境を整えています。' },
+              { n: '03', t: 'Full Support', tj: '検診後のフォロー体制', d: '検診後に気になる所見があった場合も、そのまま当クリニックの乳腺外来として引き続き診療・経過観察を行うことができ、安心して一貫したサポートをお受けいただけます。' },
+              { n: '04', t: 'Corporate', tj: '企業検診にも対応', d: '企業検診の対応も可能です。会社宛てに領収書が必要な方は、受付時にお申し付けください。' },
+            ].map(f=>(
+              <div className="vc-feat-card" key={f.n}>
+                <div className="vc-feat-num">{f.n}</div>
+                <div className="vc-feat-title">{f.t}</div>
+                <div className="vc-feat-title-jp">{f.tj}</div>
+                <div className="vc-feat-text">{f.d}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="vc-section bg">
+        <div className="vc-inner">
+          <div className="vc-eyebrow-en">— Doctor</div>
+          <h2 className="vc-title-en">Meet Your Doctor</h2>
+          <div className="vc-title-jp">担当医師のご紹介</div>
+          <div className="vc-doc-grid">
+            <div className="vc-doc-photo"><div className="vc-card-tag">医師ポートレート</div></div>
+            <div>
+              <div className="vc-doc-name-en">Mayuko Ito, MD</div>
+              <div className="vc-doc-name-jp">伊藤 真由子 先生</div>
+              <ul className="vc-doc-quals">
+                <li>日本乳癌学会 専門医</li>
+                <li>日本外科学会 専門医</li>
+                <li>検診マンモグラフィ読影認定医</li>
+                <li>乳がん検診超音波検査実施・判定医師</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="vc-section">
+        <div className="vc-inner">
+          <div className="vc-eyebrow-en">— Examinations</div>
+          <h2 className="vc-title-en">Our Exams</h2>
+          <div className="vc-title-jp">検査について</div>
+          <p className="vc-desc">マンモグラフィと超音波検査（乳腺エコー）の2種類をご用意しています。</p>
+          <div className="vc-tabs">
+            <button className={`vc-tab ${tab==='mammo'?'active':''}`} onClick={()=>setTab('mammo')}>Mammography</button>
+            <button className={`vc-tab ${tab==='echo'?'active':''}`} onClick={()=>setTab('echo')}>Ultrasound</button>
+            <button className={`vc-tab ${tab==='fna'?'active':''}`} onClick={()=>setTab('fna')}>細胞診</button>
+            <button className={`vc-tab ${tab==='cnb'?'active':''}`} onClick={()=>setTab('cnb')}>組織診（生検）</button>
+          </div>
+          <div className="vc-panel-wrap">
+            <div className={`vc-panel ${tab==='mammo'?'active':''}`}>
+              <div className="vc-panel-head">
+                <div className="vc-panel-icon">M</div>
+                <div><div className="vc-panel-title">Mammography</div><div className="vc-panel-sub">マンモグラフィ · 乳房X線撮影検査</div></div>
+              </div>
+              <div className="vc-detail">
+                <div className="vc-detail-label">Method · 検査方法</div>
+                <ul>
+                  <li>上半身は検査着に着替え、ネックレスやメガネは外します</li>
+                  <li>装置の前に立ち、片方ずつ乳房を撮影台に乗せます</li>
+                  <li>技師が乳房全体が広がるように位置を調整します</li>
+                  <li>圧迫板（アクリル製の板）で乳房を圧迫し、撮影を行います</li>
+                </ul>
+              </div>
+              <div className="vc-detail">
+                <div className="vc-detail-label">About Pain · 痛みについて</div>
+                <div className="vc-pain-grid">
+                  <div className="vc-pain-card"><b>Why pain?</b><p>乳房は立体的なため、圧迫することで脂肪や乳腺の重なりを避け、正確な診断ができます。</p></div>
+                  <div className="vc-pain-card"><b>Who feels it?</b><p>乳腺が多い方が感じやすく、20〜30代の方は乳腺の量が多いため感じやすいとされています。</p></div>
+                  <div className="vc-pain-card"><b>When to come?</b><p>生理から1週間くらい後、乳房のやわらかい時期がおすすめです。</p></div>
+                  <div className="vc-pain-card"><b>How to relax?</b><p>肩の力を抜いてリラックスを。圧迫時間は数秒程度と短いため、過度に心配は不要です。</p></div>
+                </div>
+              </div>
+            </div>
+            <div className={`vc-panel ${tab==='echo'?'active':''}`}>
+              <div className="vc-panel-head">
+                <div className="vc-panel-icon">U</div>
+                <div><div className="vc-panel-title">Ultrasound</div><div className="vc-panel-sub">超音波検査 · 乳腺エコー</div></div>
+              </div>
+              <div className="vc-detail">
+                <div className="vc-detail-label">Method · 検査方法</div>
+                <ul>
+                  <li>上半身の衣服を脱いで、ベッドに仰向けになります</li>
+                  <li>乳房に専用のゼリーを塗布します</li>
+                  <li>探触子（プローブ）を当て、乳房内部を画像化します</li>
+                </ul>
+              </div>
+              <div className="vc-detail">
+                <div className="vc-detail-label">Safety · 安全性・痛みについて</div>
+                <ul>
+                  <li>被曝はなく、安心して検査を受けていただけます</li>
+                  <li>乳腺組織の状態をリアルタイムで観察できます</li>
+                  <li>痛みはありません</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div className={`vc-panel ${tab==='fna'?'active':''}`}>
+            <div className="vc-panel-head">
+              <div className="vc-panel-icon">細</div>
+              <div><div className="vc-panel-title">細胞診</div><div className="vc-panel-sub">Fine Needle Aspiration</div></div>
+            </div>
+            <div className="vc-detail">
+              <div className="vc-detail-label">細胞診とは</div>
+              <p style={{fontSize:'14px',lineHeight:'2.1',margin:'0 0 12px'}}>視触診、マンモグラフィ検査、超音波（エコー）検査で悪性と良性の判別が困難な場合に行う検査です。細胞診は採血をする際に使用する細い針を使用して行います。超音波検査で確認しながら、細い針を腫瘤に進めて、吸引し細胞を採取し、採取した細胞を顕微鏡で観察します。</p>
+              <p style={{fontSize:'14px',lineHeight:'2.1',margin:'0 0 12px'}}>麻酔はかけないため、針を刺すときに痛みがありますが、患者さんの体への負担が小さく、簡便に行うことのできる検査です。</p>
+              <p style={{fontSize:'14px',lineHeight:'2.1',margin:'0 0 16px'}}>この検査は良性・悪性を調べるのに役に立ちます。細胞診検査では採取できる細胞が少ないので、判定が困難な場合や、乳がんの可能性が否定できない場合もあります。</p>
+              <ul>
+                <li>細胞診は実際の検査に要する時間は10分〜15分程度です。</li>
+                <li>検査結果は、約2週間でお伝えしております。</li>
+                <li>細胞診の検査後は入浴や運動、お仕事などに制限はありません。</li>
+              </ul>
+            </div>
+          </div>
+          <div className={`vc-panel ${tab==='cnb'?'active':''}`}>
+            <div className="vc-panel-head">
+              <div className="vc-panel-icon">組</div>
+              <div><div className="vc-panel-title">組織診（生検）</div><div className="vc-panel-sub">Core Needle Biopsy</div></div>
+            </div>
+            <div className="vc-detail">
+              <div className="vc-detail-label">組織診とは</div>
+              <p style={{fontSize:'14px',lineHeight:'2.1',margin:'0 0 12px'}}>組織診（生検）は、乳房の病変部に細胞診よりも太い専用の針を刺し、病変部の一部を切り取る検査です。取り出した組織はホルマリン固定後に、特殊な染色を施されたのちに顕微鏡で観察されます。針が太いため、局所麻酔をかけて行います。細胞診よりも多くの細胞を採ることができるため、周囲の組織と合わせて観察することができます。</p>
+              <p style={{fontSize:'14px',lineHeight:'2.1',margin:'0 0 12px'}}>患者さんの体への負担はありますが、病変部についてより多くの情報を得ることのできる検査です。</p>
+              <p style={{fontSize:'14px',lineHeight:'2.1',margin:'0 0 16px'}}>細胞診と異なり、良性・悪性の結果だけでなく、その腫瘍の詳しい性質も診断できます。乳がんのような悪性所見であった場合には、治療方針を決定するのに有用な検査といえます。</p>
+              <ul>
+                <li>針生検の所要時間はおよそ15〜30分程度です。</li>
+                <li>検査当日の、入浴、激しい運動、重労働は避けてもらうようにしています。</li>
+                <li>検査の結果が出るまでに約2週間かかります。</li>
+              </ul>
+            </div>
+          </div>
+          <div className="vc-comp">
+            <h3>Comparison · 比較</h3>
+            <table>
+              <thead><tr><th></th><th>Mammography</th><th>Ultrasound</th></tr></thead>
+              <tbody>
+                <tr><td>検査方法</td><td>X線撮影</td><td>超音波</td></tr>
+                <tr><td>痛み</td><td>圧迫時に痛みあり</td><td>痛みなし</td></tr>
+                <tr><td>被曝</td><td>微量あり</td><td>なし</td></tr>
+                <tr><td>得意な検出</td><td>石灰化</td><td>しこり</td></tr>
+                <tr><td>20-30代</td><td>判読が難しい場合も</td><td>対応可能</td></tr>
+                <tr><td>結果説明</td><td>当日</td><td>当日</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section className="vc-section">
+        <div className="vc-inner">
+          <div className="vc-eyebrow-en">— Price</div>
+          <h2 className="vc-title-en">Costs</h2>
+          <div className="vc-title-jp">費用</div>
+          <div className="vc-price-section">
+            <div className="vc-price-row"><span>武蔵野市乳がん検診（マンモグラフィ検査）</span><span className="amt">¥1,000</span></div>
+            <div className="vc-price-row"><span>マンモグラフィ</span><span className="amt">¥7,700</span></div>
+            <div className="vc-price-row"><span>乳房超音波検査</span><span className="amt">¥5,500</span></div>
+            <div className="vc-price-row"><span>マンモグラフィ＋乳房超音波検査</span><span className="amt">¥13,200</span></div>
+          </div>
+          <p className="vc-price-note">※乳がん検診無料クーポン券がある方は無料で受診可能です。詳しくはこちらを参照してください。</p>
+          <div style={{marginTop:'56px'}}>
+            <div className="vc-eyebrow-en" style={{marginBottom:'20px'}}>— 検診内容</div>
+            <div className="vc-exam-content-grid">
+              <div className="vc-exam-content-card"><h4>武蔵野市検診</h4><ul><li>マンモグラフィ</li></ul></div>
+              <div className="vc-exam-content-card"><h4>自費検診</h4><ul><li>マンモグラフィ</li><li>乳房超音波検査</li></ul></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="vc-section bg">
+        <div className="vc-inner">
+          <div className="vc-eyebrow-en">— Flow</div>
+          <h2 className="vc-title-en">Your Visit</h2>
+          <div className="vc-title-jp">検診の流れ</div>
+          <div className="vc-steps">
+            {[
+              { n:'1', t:'受付', d:'以下、ご持参いただき、受付を済ませてください。問診票のご記入もお願いいたします。', note:'・健康保険証またはマイナ保険証\n・受診券（武蔵野市検診の場合）\n・前回の検診結果（お持ちの方）' },
+              { n:'2', t:'着替え', d:'上半身を検査着に着替えます。', note:'' },
+              { n:'3', t:'マンモグラフィ', d:'乳房専用のX線撮影のことです。乳房を板で圧迫し、薄く伸ばした状態で撮影します。', note:'' },
+              { n:'4', t:'乳房超音波（エコー）検査', d:'ゼリーを塗った乳房の上から機械をあてて乳房内部の様子を調べる検査です。', note:'' },
+              { n:'5', t:'検診後のご説明（結果）', d:'結果は、後日郵送いたします。（おおむね3週間から4週間後）\n武蔵野市乳がん検診要精査の方は、当院乳腺外来のご予約をお願いいたします。', note:'' },
+              { n:'6', t:'お会計', d:'受付にてお会計をお願いします。', note:'※現金・クレジットカード・交通系電子マネーでの決済が可能です。' },
+            ].map(s => (
+              <div className="vc-step" key={s.n}>
+                <div className="vc-step-icon">{s.n}</div>
+                <div className="vc-step-body">
+                  <div className="vc-step-title">{s.t}</div>
+                  <div className="vc-step-text">{s.d.split('\n').map((l,i,a)=><React.Fragment key={i}>{l}{i<a.length-1&&<br/>}</React.Fragment>)}</div>
+                  {s.note && <div className="vc-step-note">{s.note.split('\n').map((l,i,a)=><React.Fragment key={i}>{l}{i<a.length-1&&<br/>}</React.Fragment>)}</div>}
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="vc-notice-box">
+            <div className="vc-eyebrow-en" style={{marginBottom:'12px'}}>— マンモグラフィの際の注意</div>
+            <p style={{fontSize:'14px',color:'var(--char)',marginBottom:'12px'}}>以下の方は検査対象外です。</p>
+            <ul className="vc-notice-list">
+              <li>妊娠中または妊娠の可能性のある方</li>
+              <li>授乳中または断乳後3カ月以内の方（できれば6カ月以降）</li>
+              <li>ペースメーカーやシャントチューブ等の人工物を挿入されている方</li>
+              <li>豊胸術を受けた方</li>
+            </ul>
+            <p>マンモグラフィ対象外の方は超音波検査をお勧めしております。</p>
+          </div>
+          <div style={{marginTop:'32px',background:'var(--bg)',border:'3px solid var(--char)',padding:'32px 36px'}}>
+            <div className="vc-eyebrow-en" style={{marginBottom:'12px'}}>— 乳がん検査後のフォロー</div>
+            <p style={{fontSize:'14px',lineHeight:'2.1',color:'rgba(72,66,66,0.8)',margin:'0'}}>検査結果が要精査・経過観察の方は乳腺外来のご予約をお願いします。</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="vc-section bg">
+        <div className="vc-inner">
+          <div className="vc-eyebrow-en">— FAQ</div>
+          <h2 className="vc-title-en">Questions</h2>
+          <div className="vc-title-jp">よくある質問</div>
+          <div className="vc-faq-list">
+            {[
+              { q: 'マンモグラフィと超音波検査はどちらを受ければいいですか？', a: '検査当日にスタッフと相談して決めることもできます。年齢や乳腺の状態によって適した検査が異なります。' },
+              { q: '胸の痛みが気になるのですが、受診できますか？', a: 'はい、乳腺外来の受診をお願いいたします。痛みの原因はさまざまですので、まずは専門医にご相談ください。' },
+              { q: '検査を受ける時の服装は？', a: 'ワンピースなど上下つながったものは避けてください。アクセサリーや制汗スプレーも避けていただきます。' },
+              { q: '検査結果はいつわかりますか？', a: 'マンモグラフィ・乳房超音波検査の結果は当日お伝えします。病理検査の結果は約2週間いただいております。' },
+            ].map((f,i)=>(
+              <div key={i} className={`vc-faq-item ${openFaq===i?'open':''}`}>
+                <div className="vc-faq-q" onClick={()=>setOpenFaq(openFaq===i?-1:i)}>
+                  <div className="vc-faq-badge">Q.</div>
+                  <div className="vc-faq-q-text">{f.q}</div>
+                  <div className="vc-faq-toggle">+</div>
+                </div>
+                <div className="vc-faq-a"><div className="vc-faq-a-text">{f.a}</div></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="vc-cta">
+        <div className="vc-inner">
+          <div className="vc-eyebrow-en">— Reservation</div>
+          <h2 className="vc-title-en"><em>Book Today.</em></h2>
+          <div className="vc-title-jp">ご予約・お問い合わせ</div>
+          <p className="vc-desc" style={{margin:'0 auto', textAlign:'center'}}>些細なことでもお気軽にご相談ください。</p>
+          <div className="vc-cta-tel">0422-40-1770</div>
+          <div style={{fontFamily:'var(--sans)', fontSize:11, opacity:0.7, letterSpacing:'0.08em'}}>9:15-12:15 / 14:15-18:15</div>
+          <div className="vc-cta-actions">
+            <a className="vc-btn vc-btn-light">RESERVATION ONLINE</a>
+          </div>
+        </div>
+      </section>
+
+      <footer className="vc-footer">
+        <div className="vc-foot-grid">
+          <div>
+            <div className="vc-foot-logo">Kichijoji Ladies Clinic</div>
+            <div className="vc-foot-addr">〒180-0003 東京都武蔵野市吉祥寺南町2-6-10 富士パームビル5F<br />TEL. 0422-40-1770</div>
+          </div>
+          <div className="vc-foot-links"><a>News</a><a>Doctor</a><a>First Visit</a><a>Reservation</a><a>Instagram</a></div>
+        </div>
+        <div className="vc-foot-copy">© 2025 KICHIJOJI LADIES CLINIC ALL RIGHTS RESERVED.</div>
+      </footer>
+    </div>
+  );
+};
+
+window.VariantC = VariantC;
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<VariantC />);
+</script>
+</body>
+</html>

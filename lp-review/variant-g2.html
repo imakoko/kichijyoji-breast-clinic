@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>案G2 — うねうね曲線×重なるblob×はっきり色分け | 乳腺外来LP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+JP:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500&family=Zen+Maru+Gothic:wght@400;500;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin></script>
+<style>
+  html, body { margin: 0; padding: 0; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+/* Variant G2 — うねうね曲線セクション × 大きい blob 重なり × はっきりした色分け
+   G→G2変更: b4 blob削除 / 比較表data-label追加（SPレスポンシブ対応） */
+const VariantG2 = () => {
+  const { useState } = React;
+  const [tab, setTab] = useState('mammo');
+  const [openFaq, setOpenFaq] = useState(0);
+
+  return (
+    <div className="vg-root">
+      {/* FIXED FLOATING BADGE */}
+      <a className="vg-side-badge">
+        <span className="vg-bdg-label">ご予約は<br/>こちら</span>
+        <span className="vg-bdg-tel">0422-40-1770</span>
+        <span className="vg-bdg-hours">9:15-12:15 / 14:15-18:15</span>
+      </a>
+      <style>{`
+      .vg-root {
+        --bg: #FFFFFF;
+        --pink-pale: #FCE9EE;
+        --pink-soft: #F8D2DD;
+        --pink: #F5B6C5;
+        --pink-mid: #ED9DB1;
+        --pink-deep: #DC7A95;
+        --pink-darker: #B83969;
+        --text: #3D1F2A;
+        --text-soft: rgba(61,31,42,0.7);
+        --jp: 'Zen Maru Gothic', 'Noto Sans JP', sans-serif;
+        --en: 'Quicksand', sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--jp);
+        line-height: 1.9;
+      }
+      .vg-root * { box-sizing: border-box; }
+
+      /* HEADER */
+      .vg-header {
+        position: absolute; top: 0; left: 0; right: 0; z-index: 20;
+        padding: 24px 56px;
+        display: flex; align-items: center; justify-content: space-between;
+      }
+      .vg-logo { font-family: var(--jp); font-size: 14px; font-weight: 700; color: var(--text); letter-spacing: 0.05em; }
+      .vg-logo small { display: block; font-family: var(--en); font-size: 10px; color: var(--pink-deep); margin-top: 2px; letter-spacing: 0.18em; font-weight: 600; }
+      .vg-nav { display: flex; gap: 28px; }
+      .vg-nav a { font-family: var(--en); font-size: 12px; color: var(--text); font-weight: 600; letter-spacing: 0.05em; }
+      .vg-cta-h { background: var(--pink-deep); color: white; padding: 12px 26px; border-radius: 100px; font-family: var(--en); font-size: 12px; font-weight: 600; letter-spacing: 0.08em; box-shadow: 0 6px 20px rgba(232,90,133,0.4); }
+
+      /* HERO — strong pink top */
+      .vg-hero {
+        position: relative;
+        background: var(--pink-deep);
+        padding: 140px 56px 220px;
+        overflow: hidden;
+      }
+      .vg-blob {
+        position: absolute; border-radius: 50%; pointer-events: none;
+      }
+      .vg-blob.b1 { width: 720px; height: 720px; background: var(--pink-mid); top: -200px; right: -240px; opacity: 0.8; animation: vg-float 10s ease-in-out infinite; }
+      .vg-blob.b2 { width: 540px; height: 540px; background: var(--pink); top: 240px; left: -260px; opacity: 0.5; animation: vg-float 8s ease-in-out infinite; }
+      .vg-blob.b3 { width: 320px; height: 320px; background: var(--pink-soft); top: 60%; right: 16%; opacity: 0.4; animation: vg-float 7s ease-in-out infinite; }
+      @keyframes vg-float {
+        0%,100% { transform: translate(0,0); }
+        33% { transform: translate(-16px,-22px); }
+        66% { transform: translate(20px,-12px); }
+      }
+
+      .vg-hero-grid {
+        position: relative; z-index: 2;
+        max-width: 1180px; margin: 0 auto;
+        display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center;
+      }
+      .vg-hero-eyebrow {
+        font-family: var(--en); font-size: 13px; font-weight: 600;
+        color: #fff; letter-spacing: 0.25em; margin-bottom: 24px;
+        display: inline-flex; align-items: center; gap: 12px;
+      }
+      .vg-hero-eyebrow::before { content: ''; width: 32px; height: 2px; background: #fff; }
+      .vg-hero-title {
+        font-family: var(--jp); font-size: 54px; font-weight: 700;
+        line-height: 1.55; letter-spacing: 0.04em; color: #fff;
+        margin-bottom: 32px;
+      }
+      .vg-hero-title em {
+        font-style: normal;
+        background: #fff; color: var(--pink-deep);
+        padding: 4px 18px; border-radius: 100px; display: inline-block;
+        line-height: 1.2;
+      }
+      .vg-hero-sub {
+        font-family: var(--jp); font-size: 15px; line-height: 2.1;
+        color: rgba(255,255,255,0.95); max-width: 460px; margin-bottom: 40px;
+      }
+      .vg-hero-actions { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; }
+      .vg-btn {
+        display: inline-flex; align-items: center; gap: 10px;
+        background: var(--pink-deep); color: #fff;
+        padding: 18px 38px; border-radius: 100px;
+        font-family: var(--en); font-size: 13px; font-weight: 600;
+        letter-spacing: 0.1em; cursor: pointer; transition: transform 0.3s;
+        box-shadow: 0 10px 28px rgba(232,90,133,0.45); border: none;
+      }
+      .vg-btn:hover { transform: translateY(-2px); }
+      .vg-tel { font-family: var(--en); font-size: 22px; font-weight: 600; color: #fff; letter-spacing: 0.04em; }
+      .vg-tel small { display: block; font-family: var(--jp); font-size: 11px; color: rgba(255,255,255,0.85); letter-spacing: 0.08em; font-weight: 400; }
+      .vg-hero .vg-btn { background: #fff; color: var(--pink-deep); }
+      .vg-hero .vg-btn:hover { background: rgba(255,255,255,0.9); }
+      .vg-header .vg-cta-h { background: #fff; color: var(--pink-deep); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+      .vg-header .vg-logo, .vg-header .vg-nav a { color: #fff; }
+      .vg-header .vg-logo small { color: rgba(255,255,255,0.85); }
+
+      /* HERO IMAGE */
+      .vg-hero-img {
+        position: relative;
+        height: 520px;
+        border-radius: 40px;
+        background: repeating-linear-gradient(135deg, #FCE9EE 0 12px, #F8D2DD 12px 24px);
+        display: flex; align-items: flex-end; justify-content: flex-end;
+        padding: 24px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+      }
+      .vg-img-tag { font-family: var(--en); font-size: 11px; font-weight: 600; background: rgba(61,31,42,0.7); color: #fff; padding: 8px 14px; border-radius: 100px; letter-spacing: 0.05em; }
+
+      /* SVG WAVE divider */
+      .vg-wave {
+        display: block; width: 100%; height: auto; margin: 0; padding: 0;
+        position: relative; z-index: 3;
+      }
+      .vg-wave-up { margin-top: -120px; }
+      .vg-wave-down { margin-bottom: -120px; }
+
+      /* SECTION base */
+      .vg-section { padding: 100px 56px; position: relative; }
+      .vg-inner { max-width: 1180px; margin: 0 auto; position: relative; z-index: 1; }
+
+      .vg-eyebrow { font-family: var(--en); font-size: 12px; font-weight: 600; color: var(--pink-deep); letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 14px; display: inline-flex; align-items: center; gap: 10px; }
+      .vg-eyebrow::before { content: ''; width: 28px; height: 2px; background: var(--pink-deep); }
+      .vg-title { font-family: var(--jp); font-size: 38px; font-weight: 700; line-height: 1.55; letter-spacing: 0.04em; color: var(--text); margin-bottom: 20px; }
+      .vg-desc { font-size: 14px; line-height: 2.1; color: var(--text-soft); max-width: 600px; }
+
+      /* ABOUT — soft pink, big background blobs */
+      .vg-about { background: #FFF6F8; padding: 140px 56px; }
+      .vg-about-deco {
+        position: absolute; right: -300px; top: -100px;
+        width: 720px; height: 720px; border-radius: 50%;
+        background: var(--pink-soft); z-index: 0; opacity: 0.6;
+      }
+      .vg-about-deco2 {
+        position: absolute; left: -200px; bottom: -200px;
+        width: 540px; height: 540px; border-radius: 50%;
+        background: var(--pink-pale); z-index: 0;
+      }
+      .vg-about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-top: 48px; align-items: center; }
+      .vg-about-text { font-size: 15px; line-height: 2.4; color: var(--text); }
+      .vg-about-text em { font-style: normal; color: var(--pink-deep); font-weight: 700; background: var(--pink-pale); padding: 2px 8px; border-radius: 6px; }
+      .vg-about-img {
+        height: 420px; border-radius: 50% 50% 40px 40px;
+        background: repeating-linear-gradient(135deg, #FFD9E4 0 10px, #FFC4D4 10px 20px);
+        display: flex; align-items: center; justify-content: center;
+        box-shadow: 0 16px 48px rgba(232,90,133,0.18);
+      }
+
+      /* FEATURES — pale pink, large blobs */
+      .vg-features { background: var(--pink-pale); padding: 160px 56px; position: relative; overflow: hidden; }
+      .vg-features-deco1 { position: absolute; left: -260px; top: 100px; width: 720px; height: 720px; border-radius: 50%; background: var(--pink-soft); opacity: 0.7; }
+      .vg-features-deco2 { position: absolute; right: -300px; bottom: 80px; width: 640px; height: 640px; border-radius: 50%; background: #fff; opacity: 0.7; }
+      .vg-features-deco3 { position: absolute; right: 10%; top: 60px; width: 200px; height: 200px; border-radius: 50%; background: var(--pink); opacity: 0.3; }
+
+      .vg-feat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 56px; }
+      .vg-feat-card {
+        background: #fff;
+        border-radius: 32px;
+        padding: 44px 38px;
+        position: relative;
+        color: var(--text);
+        transition: transform 0.4s;
+        box-shadow: 0 8px 32px rgba(220,122,149,0.08);
+      }
+      .vg-feat-card:hover { transform: translateY(-6px); }
+      .vg-feat-num {
+        font-family: var(--en); font-size: 56px; font-weight: 700;
+        color: var(--pink-deep); line-height: 1; margin-bottom: 16px;
+      }
+      .vg-feat-title { font-family: var(--jp); font-size: 22px; font-weight: 700; color: var(--text); margin-bottom: 16px; line-height: 1.5; }
+      .vg-feat-text { font-size: 13px; line-height: 2.05; color: var(--text-soft); }
+
+      /* DOCTOR — white */
+      .vg-doctor { background: #fff; padding: 140px 56px; }
+      .vg-doc-deco {
+        position: absolute; right: -240px; top: 80px;
+        width: 540px; height: 540px; border-radius: 50%;
+        background: var(--pink-pale); z-index: 0; opacity: 0.7;
+      }
+      .vg-doc-grid { display: grid; grid-template-columns: 320px 1fr; gap: 64px; margin-top: 48px; align-items: center; }
+      .vg-doc-photo {
+        width: 300px; height: 380px; border-radius: 40px;
+        background: repeating-linear-gradient(135deg, #FFC4D4 0 10px, #FF9DB8 10px 20px);
+        display: flex; align-items: center; justify-content: center;
+        box-shadow: 0 16px 48px rgba(232,90,133,0.2);
+      }
+      .vg-doc-name { font-family: var(--jp); font-size: 26px; font-weight: 700; margin-bottom: 6px; }
+      .vg-doc-en { font-family: var(--en); font-size: 14px; font-weight: 600; color: var(--pink-deep); margin-bottom: 24px; letter-spacing: 0.05em; }
+      .vg-doc-quals { list-style: none; padding: 0; margin: 0 0 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+      .vg-doc-quals li {
+        font-family: var(--jp); font-size: 13px; padding: 12px 16px;
+        background: var(--pink-pale); border-radius: 100px;
+        text-align: center; color: var(--text); font-weight: 500;
+      }
+      .vg-doc-msg {
+        font-family: var(--jp); font-size: 14px; line-height: 2.2;
+        background: var(--pink-pale); padding: 28px 32px;
+        border-radius: 24px; position: relative;
+      }
+
+      /* EXAMS — pale pink with big blobs */
+      .vg-exams { background: var(--pink-pale); padding: 160px 56px; }
+      .vg-exams-deco { position: absolute; left: -240px; top: 200px; width: 640px; height: 640px; border-radius: 50%; background: var(--pink-soft); opacity: 0.5; }
+      .vg-exams-deco2 { position: absolute; right: -200px; bottom: 200px; width: 540px; height: 540px; border-radius: 50%; background: #fff; opacity: 0.6; }
+
+      .vg-tabs { display: flex; gap: 12px; margin-top: 48px; }
+      .vg-tab {
+        background: #fff; border: none;
+        padding: 16px 32px; border-radius: 100px 100px 0 0;
+        font-family: var(--jp); font-size: 14px; font-weight: 700;
+        color: var(--text-soft); cursor: pointer;
+        transition: all 0.3s;
+      }
+      .vg-tab.active { background: var(--pink-deep); color: #fff; }
+      .vg-panel-wrap { background: #fff; border-radius: 0 24px 24px 24px; padding: 44px 36px; }
+      .vg-panel { display: none; }
+      .vg-panel.active { display: block; }
+      .vg-panel-head { display: flex; align-items: center; gap: 20px; margin-bottom: 32px; padding-bottom: 24px; border-bottom: 2px dashed var(--pink); }
+      .vg-panel-icon {
+        width: 64px; height: 64px; border-radius: 50%;
+        background: var(--pink-deep); color: #fff;
+        display: flex; align-items: center; justify-content: center;
+        font-family: var(--en); font-weight: 700; font-size: 24px;
+      }
+      .vg-panel-title { font-family: var(--jp); font-size: 22px; font-weight: 700; }
+      .vg-panel-sub { font-size: 12px; color: var(--text-soft); margin-top: 2px; }
+
+      .vg-detail { margin-bottom: 28px; }
+      .vg-detail-label { font-family: var(--jp); font-size: 14px; font-weight: 700; color: var(--pink-deep); margin-bottom: 12px; padding-left: 14px; border-left: 4px solid var(--pink-deep); }
+      .vg-detail ul { list-style: none; padding-left: 14px; margin: 0; }
+      .vg-detail ul li { font-size: 14px; line-height: 2; padding-left: 22px; position: relative; }
+      .vg-detail ul li::before { content: ''; position: absolute; left: 0; top: 14px; width: 8px; height: 8px; border-radius: 50%; background: var(--pink); }
+      .vg-pain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding-left: 14px; }
+      .vg-pain-card { background: var(--pink-pale); border-radius: 20px; padding: 22px 24px; }
+      .vg-pain-card b { display: block; font-family: var(--jp); font-size: 13px; font-weight: 700; color: var(--pink-deep); margin-bottom: 8px; }
+      .vg-pain-card p { font-size: 13px; line-height: 1.95; margin: 0; color: var(--text); }
+
+      .vg-comp { margin-top: 48px; }
+      .vg-comp h3 { font-family: var(--jp); font-size: 22px; font-weight: 700; margin-bottom: 20px; }
+      .vg-comp-table-wrap { background: #fff; border-radius: 24px; overflow: hidden; }
+      .vg-comp table { width: 100%; border-collapse: collapse; }
+      .vg-comp th { background: var(--pink-deep); color: #fff; font-family: var(--jp); font-weight: 700; padding: 16px; font-size: 13px; }
+      .vg-comp td { padding: 14px 18px; font-size: 13px; text-align: center; border-bottom: 1px solid var(--pink-pale); }
+      .vg-comp td:first-child { background: var(--pink-pale); text-align: left; font-weight: 700; }
+      .vg-comp tr:last-child td { border-bottom: none; }
+
+      /* FAQ — white with blob */
+      .vg-faq { background: #fff; padding: 140px 56px; }
+      .vg-faq-deco { position: absolute; left: -200px; top: 80px; width: 480px; height: 480px; border-radius: 50%; background: var(--pink-pale); opacity: 0.7; }
+      .vg-faq-list { margin-top: 48px; max-width: 880px; }
+      .vg-faq-item { background: var(--pink-pale); border-radius: 20px; margin-bottom: 14px; transition: background 0.3s; }
+      .vg-faq-item.open { background: #fff; box-shadow: 0 8px 28px rgba(232,90,133,0.12); }
+      .vg-faq-q { display: flex; gap: 18px; align-items: center; padding: 22px 28px; cursor: pointer; }
+      .vg-faq-badge { width: 36px; height: 36px; border-radius: 50%; background: var(--pink-deep); color: #fff; display: flex; align-items: center; justify-content: center; font-family: var(--en); font-weight: 700; font-size: 14px; flex-shrink: 0; }
+      .vg-faq-q-text { flex: 1; font-size: 15px; font-weight: 700; line-height: 1.6; }
+      .vg-faq-toggle { width: 32px; height: 32px; border-radius: 50%; background: #fff; color: var(--pink-deep); display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; transition: transform 0.3s; flex-shrink: 0; }
+      .vg-faq-item.open .vg-faq-toggle { transform: rotate(45deg); background: var(--pink-deep); color: #fff; }
+      .vg-faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s; }
+      .vg-faq-item.open .vg-faq-a { max-height: 240px; }
+      .vg-faq-a-text { font-size: 14px; line-height: 2.1; color: var(--text-soft); padding: 0 28px 24px 84px; }
+
+      /* CTA — strong pink with big blobs */
+      .vg-cta { background: var(--pink-deep); color: #fff; text-align: center; padding: 140px 56px; position: relative; overflow: hidden; }
+      .vg-cta-deco1 { position: absolute; left: -240px; top: -200px; width: 640px; height: 640px; border-radius: 50%; background: var(--pink-mid); opacity: 0.7; }
+      .vg-cta-deco2 { position: absolute; right: -200px; bottom: -240px; width: 540px; height: 540px; border-radius: 50%; background: var(--pink); opacity: 0.45; }
+      .vg-cta .vg-eyebrow { color: #fff; }
+      .vg-cta .vg-eyebrow::before { background: #fff; }
+      .vg-cta .vg-title { color: #fff; }
+      .vg-cta .vg-desc { color: rgba(255,255,255,0.9); margin: 0 auto; }
+      .vg-cta-tel { font-family: var(--en); font-size: 48px; font-weight: 700; letter-spacing: 0.04em; margin-top: 32px; }
+      .vg-cta-tel-sub { font-family: var(--jp); font-size: 12px; opacity: 0.85; margin-bottom: 32px; }
+      .vg-cta .vg-btn { background: #fff; color: var(--pink-deep); box-shadow: 0 12px 36px rgba(0,0,0,0.2); }
+
+      /* FOOTER */
+      .vg-footer { background: var(--text); color: rgba(255,255,255,0.7); padding: 64px 56px 32px; }
+      .vg-foot-grid { max-width: 1180px; margin: 0 auto; display: flex; justify-content: space-between; gap: 40px; }
+      .vg-foot-logo { font-family: var(--jp); font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 12px; }
+      .vg-foot-addr { font-size: 12px; line-height: 1.9; }
+      .vg-foot-links { display: flex; gap: 28px; }
+      .vg-foot-links a { font-family: var(--en); font-size: 12px; font-weight: 500; }
+      .vg-foot-copy { text-align: center; font-family: var(--en); font-size: 11px; margin-top: 56px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.4); letter-spacing: 0.05em; }
+
+      /* FIXED FLOATING BADGE */
+      .vg-side-badge {
+        position: fixed; right: 24px; bottom: 24px;
+        width: 124px; height: 124px;
+        border-radius: 50%;
+        background: var(--pink-deep);
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        z-index: 50;
+        box-shadow: 0 12px 36px rgba(220,122,149,0.5);
+        text-align: center; padding: 14px;
+        cursor: pointer;
+      }
+      .vg-side-badge::before { content: ''; position: absolute; inset: -6px; border-radius: 50%; border: 2px dashed #fff; opacity: 0.6; animation: vg-spin 30s linear infinite; }
+      @keyframes vg-spin { from { transform: rotate(0); } to { transform: rotate(360deg); } }
+      .vg-bdg-label { font-family: var(--jp); font-size: 13px; font-weight: 700; line-height: 1.4; color: #fff; }
+      .vg-bdg-tel { font-family: var(--en); font-size: 12px; font-weight: 700; color: #fff; margin-top: 6px; letter-spacing: 0.02em; }
+      .vg-bdg-hours { font-family: var(--en); font-size: 8px; color: rgba(255,255,255,0.85); margin-top: 3px; }
+
+      /* PRICE */
+      .vg-price-section { background: #fff; border-radius: 20px; overflow: hidden; border: 1px solid var(--pink-pale); }
+      .vg-price-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 24px; border-bottom: 1px solid var(--pink-pale); font-size: 14px; line-height: 1.7; gap: 24px; }
+      .vg-price-row:last-child { border-bottom: none; }
+      .vg-price-row .amt { font-family: var(--en); font-weight: 700; color: var(--pink-deep); white-space: nowrap; font-size: 15px; }
+      .vg-price-note { font-size: 12px; color: var(--text-soft); padding-left: 0; margin-top: 12px; line-height: 2; }
+      .vg-exam-content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 16px; }
+      .vg-exam-content-card { background: var(--pink-pale); border-radius: 16px; padding: 24px 22px; }
+      .vg-exam-content-card h4 { font-size: 14px; font-weight: 700; color: var(--pink-deep); margin: 0 0 12px; font-family: var(--jp); }
+      .vg-exam-content-card ul { list-style: none; padding: 0; margin: 0; }
+      .vg-exam-content-card li { font-size: 13px; line-height: 2; padding-left: 16px; position: relative; }
+      .vg-exam-content-card li::before { content: '・'; position: absolute; left: 0; color: var(--pink-deep); }
+      /* STEPS */
+      .vg-steps { margin-top: 40px; }
+      .vg-step { display: flex; gap: 20px; padding-bottom: 28px; position: relative; }
+      .vg-step:not(:last-child)::after { content: ''; position: absolute; left: 22px; top: 46px; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--pink), var(--pink-pale)); }
+      .vg-step-icon { width: 46px; height: 46px; border-radius: 50%; background: var(--pink-deep); color: #fff; display: flex; align-items: center; justify-content: center; font-family: var(--en); font-weight: 700; font-size: 16px; flex-shrink: 0; }
+      .vg-step-body { flex: 1; padding-top: 8px; }
+      .vg-step-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; font-family: var(--jp); }
+      .vg-step-text { font-size: 14px; line-height: 2.05; color: var(--text-soft); }
+      .vg-step-note { font-size: 12px; color: var(--text-soft); margin-top: 6px; line-height: 1.9; }
+      /* NOTICE BOX */
+      .vg-notice-box { background: var(--pink-pale); border-radius: 20px; padding: 28px 32px; margin-top: 32px; }
+      .vg-notice-list { list-style: none; padding: 0; margin: 0 0 12px; }
+      .vg-notice-list li { font-size: 14px; line-height: 2.0; padding-left: 20px; position: relative; color: var(--text); }
+      .vg-notice-list li::before { content: '・'; position: absolute; left: 0; color: var(--pink-deep); }
+      .vg-notice-box p { font-size: 13px; color: var(--text-soft); margin: 0; line-height: 1.9; }
+
+      /* RESPONSIVE */
+      @media (max-width: 768px) {
+        .vg-header { padding: 14px 20px; }
+        .vg-nav { display: none; }
+        .vg-cta-h { padding: 8px 16px; font-size: 11px; }
+        .vg-hero { padding: 80px 24px 60px; }
+        .vg-hero-grid { grid-template-columns: 1fr; gap: 32px; }
+        .vg-hero-title { font-size: 32px; line-height: 1.5; }
+        .vg-hero-img { height: 240px; }
+        .vg-about { padding: 72px 24px !important; }
+        .vg-about-grid { grid-template-columns: 1fr; gap: 32px; }
+        .vg-about-img { height: 220px; }
+        .vg-features { padding: 72px 24px !important; }
+        .vg-feat-grid { grid-template-columns: 1fr; gap: 16px; }
+        .vg-feat-card { padding: 32px 24px; }
+        .vg-doctor { padding: 72px 24px !important; }
+        .vg-doc-grid { grid-template-columns: 1fr; gap: 32px; }
+        .vg-doc-photo { width: 100%; height: 240px; }
+        .vg-doc-quals { grid-template-columns: 1fr; }
+        .vg-exams { padding: 72px 24px !important; }
+        .vg-tabs { flex-wrap: wrap; }
+        .vg-tab { flex: 1 1 calc(50% - 6px); padding: 12px 8px; font-size: 12px; text-align: center; }
+        .vg-panel-wrap { padding: 24px 16px; border-radius: 0 16px 16px 16px; }
+        .vg-pain-grid { grid-template-columns: 1fr; }
+        .vg-comp thead { display: none; }
+        .vg-comp table { font-size: 13px; }
+        .vg-comp tr { display: block; margin-bottom: 12px; border-radius: 12px; overflow: hidden; }
+        .vg-comp td { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border-bottom: 1px solid var(--pink-pale); text-align: left; }
+        .vg-comp td:first-child { background: var(--pink-deep); color: #fff; font-weight: 700; border-bottom: none; }
+        .vg-comp td[data-label]::before { content: attr(data-label); font-weight: 700; color: var(--pink-deep); margin-right: 12px; white-space: nowrap; flex-shrink: 0; }
+        .vg-section { padding: 72px 24px !important; }
+        .vg-title { font-size: 26px; }
+        .vg-price-section { border-radius: 12px; }
+        .vg-price-row { padding: 10px 16px; font-size: 13px; }
+        .vg-exam-content-grid { grid-template-columns: 1fr; }
+        .vg-step { gap: 14px; }
+        .vg-notice-box { padding: 20px 20px; }
+        .vg-faq { padding: 72px 24px !important; }
+        .vg-faq-list { max-width: 100%; }
+        .vg-faq-a-text { padding: 0 16px 20px 16px; }
+        .vg-cta { padding: 72px 24px !important; }
+        .vg-cta-tel { font-size: 32px; }
+        .vg-footer { padding: 48px 24px 24px; }
+        .vg-foot-grid { flex-direction: column; gap: 24px; }
+        .vg-foot-links { flex-wrap: wrap; gap: 16px; }
+        .vg-side-badge { width: 84px; height: 84px; right: 12px; bottom: 12px; padding: 10px; }
+        .vg-bdg-label { font-size: 11px; }
+        .vg-bdg-tel { font-size: 9px; }
+        .vg-wave { height: 60px !important; }
+        .vg-inner { max-width: 100%; }
+      }
+      `}</style>
+
+      {/* HEADER */}
+      <header className="vg-header">
+        <div className="vg-logo">吉祥寺レディースクリニック<small>BREAST CARE</small></div>
+        <nav className="vg-nav"><a>About</a><a>Strengths</a><a>Doctor</a><a>Exams</a><a>FAQ</a><a>Access</a></nav>
+        <a className="vg-cta-h">RESERVATION</a>
+      </header>
+
+      {/* HERO */}
+      <section className="vg-hero">
+        <div className="vg-blob b1"></div>
+        <div className="vg-blob b2"></div>
+        <div className="vg-blob b3"></div>
+        <div className="vg-hero-grid">
+          <div>
+            <div className="vg-hero-eyebrow">BREAST CARE FOR YOU</div>
+            <h1 className="vg-hero-title">少しでも<em>不安なく</em><br/>乳腺外来に<br/>いらしていただける<br/>ように。</h1>
+            <p className="vg-hero-sub">
+              乳房のしこり、痛み、違和感など——些細なことでも、おひとりで抱えず女性医師・女性スタッフにお話しください。
+            </p>
+            <div className="vg-hero-actions">
+              <a className="vg-btn">RESERVATION</a>
+              <div className="vg-tel">0422-40-1770<small>受付 9:15-12:15 / 14:15-18:15</small></div>
+            </div>
+          </div>
+          <div className="vg-hero-img">
+            <div className="vg-img-tag">PLACEHOLDER · 院内 / 医師ポートレート</div>
+          </div>
+        </div>
+      </section>
+
+      {/* WAVE divider — hero deep pink → about soft */}
+      <svg className="vg-wave" viewBox="0 0 1280 160" preserveAspectRatio="none" style={{height:160, display:'block', marginTop:-1, background:'#DC7A95'}}>
+        <path d="M0,90 C320,140 640,40 960,90 C1100,110 1200,80 1280,70 L1280,160 L0,160 Z" fill="#F8D2DD"/>
+        <path d="M0,120 C280,80 600,160 960,110 C1100,90 1200,120 1280,110 L1280,160 L0,160 Z" fill="#FFF6F8"/>
+      </svg>
+
+      {/* ABOUT */}
+      <section className="vg-section vg-about">
+        <div className="vg-about-deco"></div>
+        <div className="vg-about-deco2"></div>
+        <div className="vg-inner">
+          <div className="vg-eyebrow">ABOUT</div>
+          <h2 className="vg-title">乳腺外来について</h2>
+          <div className="vg-about-grid">
+            <div className="vg-about-text">
+              乳腺外来では、乳房のしこり、痛み、分泌物、違和感などの症状について、<em>女性医師・女性技師</em>が丁寧に診察・検査をいたします。<br /><br />
+              「胸のしこりが気になる」「定期検診を受けたい」など、些細な事でもお気軽にご相談ください。
+            </div>
+            <div className="vg-about-img"><div className="vg-img-tag">院内写真</div></div>
+          </div>
+        </div>
+      </section>
+
+      {/* WAVE divider — about soft → features pale */}
+      <svg className="vg-wave" viewBox="0 0 1280 140" preserveAspectRatio="none" style={{height:140, display:'block', marginTop:-1, background:'#FFF6F8'}}>
+        <path d="M0,80 C320,20 640,120 960,70 C1100,50 1200,80 1280,90 L1280,140 L0,140 Z" fill="#FCE9EE"/>
+      </svg>
+
+      {/* FEATURES */}
+      <section className="vg-features">
+        <div className="vg-features-deco1"></div>
+        <div className="vg-features-deco2"></div>
+        <div className="vg-features-deco3"></div>
+        <div className="vg-inner">
+          <div className="vg-eyebrow">OUR STRENGTHS</div>
+          <h2 className="vg-title">当院が選ばれる理由</h2>
+          <div className="vg-feat-grid">
+            {[
+              { n: '01', t: 'マンモグラフィー・\n超音波の両方に対応', d: 'マンモグラフィー検査・乳腺超音波検査の両方に対応しており、年齢や乳腺の状態などを考慮しながら、お一人おひとりに最適な検査方法をご案内します。' },
+              { n: '02', t: 'すべて女性技師が担当', d: '検診はすべて女性技師が担当しているため、デリケートな部位の検査でも緊張せずリラックスしてお受けいただける環境を整えています。' },
+              { n: '03', t: '検診後の\nフォロー体制', d: '検診後に気になる所見があった場合も、そのまま当クリニックの乳腺外来として引き続き診療・経過観察を行うことができるため、安心して検診から治療まで一貫したサポートをお受けいただけます。' },
+              { n: '04', t: '企業検診にも対応', d: '企業検診の対応も可能です。会社宛てに領収書が必要な方は、受付時にお申し付けください。' },
+            ].map(f => (
+              <div className="vg-feat-card" key={f.n}>
+                <div className="vg-feat-num">{f.n}</div>
+                <div className="vg-feat-title">{f.t.split('\n').map((l,i)=><React.Fragment key={i}>{l}{i<f.t.split('\n').length-1&&<br/>}</React.Fragment>)}</div>
+                <div className="vg-feat-text">{f.d}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* WAVE divider — features pale → doctor white */}
+      <svg className="vg-wave" viewBox="0 0 1280 140" preserveAspectRatio="none" style={{height:140, display:'block', marginTop:-1, background:'#FCE9EE'}}>
+        <path d="M0,90 C320,140 640,40 960,80 C1100,100 1200,70 1280,60 L1280,140 L0,140 Z" fill="#fff"/>
+      </svg>
+
+      {/* DOCTOR — white */}
+      <section className="vg-section vg-doctor">
+        <div className="vg-doc-deco"></div>
+        <div className="vg-inner">
+          <div className="vg-eyebrow">DOCTOR</div>
+          <h2 className="vg-title">担当医師のご紹介</h2>
+          <div className="vg-doc-grid">
+            <div className="vg-doc-photo"><div className="vg-img-tag">医師ポートレート</div></div>
+            <div>
+              <div className="vg-doc-name">伊藤 真由子 先生</div>
+              <div className="vg-doc-en">Mayuko Ito, MD</div>
+              <ul className="vg-doc-quals">
+                <li>日本乳癌学会 専門医</li>
+                <li>日本外科学会 専門医</li>
+                <li>検診マンモグラフィ読影認定医</li>
+                <li>乳がん検診超音波検査実施・判定医師</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* WAVE divider — doctor white → exams pale */}
+      <svg className="vg-wave" viewBox="0 0 1280 140" preserveAspectRatio="none" style={{height:140, display:'block', marginTop:-1, background:'#fff'}}>
+        <path d="M0,80 C320,140 640,30 960,90 C1100,120 1200,80 1280,70 L1280,140 L0,140 Z" fill="#FCE9EE"/>
+      </svg>
+
+      {/* EXAMS — pale pink */}
+      <section className="vg-section vg-exams">
+        <div className="vg-exams-deco"></div>
+        <div className="vg-exams-deco2"></div>
+        <div className="vg-inner">
+          <div className="vg-eyebrow">EXAMINATIONS</div>
+          <h2 className="vg-title">検査について</h2>
+          <p className="vg-desc">マンモグラフィと超音波検査（乳腺エコー）の2種類をご用意しています。</p>
+          <div className="vg-tabs">
+            <button className={`vg-tab ${tab==='mammo'?'active':''}`} onClick={()=>setTab('mammo')}>マンモグラフィ</button>
+            <button className={`vg-tab ${tab==='echo'?'active':''}`} onClick={()=>setTab('echo')}>超音波（乳腺エコー）</button>
+            <button className={`vg-tab ${tab==='fna'?'active':''}`} onClick={()=>setTab('fna')}>細胞診</button>
+            <button className={`vg-tab ${tab==='cnb'?'active':''}`} onClick={()=>setTab('cnb')}>組織診（生検）</button>
+          </div>
+          <div className="vg-panel-wrap">
+            <div className={`vg-panel ${tab==='mammo'?'active':''}`}>
+              <div className="vg-panel-head">
+                <div className="vg-panel-icon">M</div>
+                <div><div className="vg-panel-title">マンモグラフィ</div><div className="vg-panel-sub">乳房X線撮影検査</div></div>
+              </div>
+              <div className="vg-detail">
+                <div className="vg-detail-label">検査方法</div>
+                <ul>
+                  <li>上半身は検査着に着替え、ネックレスやメガネは外します</li>
+                  <li>装置の前に立ち、片方ずつ乳房を撮影台に乗せます</li>
+                  <li>技師が乳房全体が広がるように位置を調整します</li>
+                  <li>圧迫板（アクリル製の板）で乳房を圧迫し、撮影を行います</li>
+                </ul>
+              </div>
+              <div className="vg-detail">
+                <div className="vg-detail-label">痛みについて</div>
+                <div className="vg-pain-grid">
+                  <div className="vg-pain-card"><b>痛みが生じる理由</b><p>乳房は立体的なため、圧迫することで脂肪や乳腺の重なりを避け、正確な診断ができます。</p></div>
+                  <div className="vg-pain-card"><b>痛みを感じやすい方</b><p>乳腺が多い方が感じやすく、20〜30代の方は乳腺の量が多いため感じやすいとされています。</p></div>
+                  <div className="vg-pain-card"><b>おすすめの検査時期</b><p>生理から1週間くらい後、乳房のやわらかい時期がおすすめです。</p></div>
+                  <div className="vg-pain-card"><b>痛みを軽減する方法</b><p>肩の力を抜いてリラックスを。圧迫時間は数秒程度と短いため、過度に心配は不要です。</p></div>
+                </div>
+              </div>
+            </div>
+            <div className={`vg-panel ${tab==='echo'?'active':''}`}>
+              <div className="vg-panel-head">
+                <div className="vg-panel-icon">U</div>
+                <div><div className="vg-panel-title">超音波検査（乳腺エコー）</div><div className="vg-panel-sub">乳房超音波検査</div></div>
+              </div>
+              <div className="vg-detail">
+                <div className="vg-detail-label">検査方法</div>
+                <ul>
+                  <li>上半身の衣服を脱いで、ベッドに仰向けになります</li>
+                  <li>乳房に専用のゼリーを塗布します</li>
+                  <li>探触子（プローブ）を当て、乳房内部を画像化します</li>
+                </ul>
+              </div>
+              <div className="vg-detail">
+                <div className="vg-detail-label">安全性・痛みについて</div>
+                <ul>
+                  <li>被曝はなく、安心して検査を受けていただけます</li>
+                  <li>乳腺組織の状態をリアルタイムで観察できます</li>
+                  <li>痛みはありません</li>
+                </ul>
+              </div>
+            </div>
+            <div className={`vg-panel ${tab==='fna'?'active':''}`}>
+              <div className="vg-panel-head">
+                <div className="vg-panel-icon">細</div>
+                <div><div className="vg-panel-title">細胞診</div></div>
+              </div>
+              <div className="vg-detail">
+                <div className="vg-detail-label">細胞診とは</div>
+                <p style={{fontSize:'14px',lineHeight:'2.1',color:'var(--text-soft)',paddingLeft:'14px',margin:'0'}}>視触診、マンモグラフィ検査、超音波（エコー）検査で悪性と良性の判別が困難な場合に行う検査です。細胞診は採血をする際に使用する細い針を使用して行います。超音波検査で確認しながら、細い針を腫瘤に進めて、吸引し細胞を採取し、採取した細胞を顕微鏡で観察します。細胞の形態と種類、構成から病変が何であるのかを診断します。</p>
+                <p style={{fontSize:'14px',lineHeight:'2.1',color:'var(--text-soft)',paddingLeft:'14px',margin:'16px 0 0'}}>麻酔はかけないため、針を刺すときに痛みがありますが、患者さんの体への負担が小さく、簡便に行うことのできる検査です。</p>
+                <p style={{fontSize:'14px',lineHeight:'2.1',color:'var(--text-soft)',paddingLeft:'14px',margin:'16px 0 0'}}>この検査は良性・悪性を調べるのに役に立ちます。細胞診検査では採取できる細胞が少ないので、判定が困難な場合や、乳がんの可能性が否定できない場合もあります。</p>
+              </div>
+              <div className="vg-detail">
+                <ul>
+                  <li>細胞診は実際の検査に要する時間は10分〜15分程度です。</li>
+                  <li>検査結果は、約2週間でお伝えしております。</li>
+                  <li>細胞診の検査後は入浴や運動、お仕事などに制限はありません。</li>
+                </ul>
+              </div>
+            </div>
+            <div className={`vg-panel ${tab==='cnb'?'active':''}`}>
+              <div className="vg-panel-head">
+                <div className="vg-panel-icon">組</div>
+                <div><div className="vg-panel-title">組織診（生検）</div></div>
+              </div>
+              <div className="vg-detail">
+                <div className="vg-detail-label">組織診とは</div>
+                <p style={{fontSize:'14px',lineHeight:'2.1',color:'var(--text-soft)',paddingLeft:'14px',margin:'0'}}>組織診（生検）は、乳房の病変部に細胞診よりも太い専用の針を刺し、病変部の一部を切り取る検査です。取り出した組織はホルマリン固定※後に、特殊な染色を施されたのちに顕微鏡で観察されます。針が太いため、局所麻酔をかけて行います。細胞診よりも多くの細胞を採ることができるため、周囲の組織と合わせて観察することができます。</p>
+                <p style={{fontSize:'14px',lineHeight:'2.1',color:'var(--text-soft)',paddingLeft:'14px',margin:'16px 0 0'}}>患者さんの体への負担はありますが、病変部についてより多くの情報を得ることのできる検査です。</p>
+                <p style={{fontSize:'14px',lineHeight:'2.1',color:'var(--text-soft)',paddingLeft:'14px',margin:'16px 0 0'}}>細胞診と異なり、良性・悪性の結果だけでなく、その腫瘍の詳しい性質も診断できます。乳がんのような悪性所見であった場合には、腫瘍の詳しい性質も判定できるので、治療方針を決定するのに有用な検査といえます。</p>
+              </div>
+              <div className="vg-detail">
+                <ul>
+                  <li>針生検の所要時間はおよそ15〜30分程度です。</li>
+                  <li>検査当日の、入浴、激しい運動、重労働は避けてもらうようにしています。</li>
+                  <li>検査の結果が出るまでに約2週間かかります。</li>
+                </ul>
+                <p style={{fontSize:'12px',lineHeight:'1.9',color:'var(--text-soft)',paddingLeft:'14px',margin:'16px 0 0'}}>※ホルマリン固定：採取された組織をそのままの状態で固定するために、ホルマリン液を浸み込ませる処置のことです</p>
+              </div>
+            </div>
+          </div>
+          <div className="vg-comp">
+            <h3>マンモグラフィと超音波の比較</h3>
+            <div className="vg-comp-table-wrap">
+              <table>
+                <thead><tr><th></th><th>マンモグラフィ</th><th>超音波（エコー）</th></tr></thead>
+                <tbody>
+                  <tr><td>検査方法</td><td data-label="マンモグラフィ">X線撮影</td><td data-label="超音波（エコー）">超音波</td></tr>
+                  <tr><td>痛み</td><td data-label="マンモグラフィ">圧迫時に痛みあり</td><td data-label="超音波（エコー）">痛みなし</td></tr>
+                  <tr><td>被曝</td><td data-label="マンモグラフィ">微量あり</td><td data-label="超音波（エコー）">なし</td></tr>
+                  <tr><td>得意な検出</td><td data-label="マンモグラフィ">石灰化の検出に優れる</td><td data-label="超音波（エコー）">しこりの検出に優れる</td></tr>
+                  <tr><td>20-30代</td><td data-label="マンモグラフィ">判読が難しい場合も</td><td data-label="超音波（エコー）">対応可能</td></tr>
+                  <tr><td>結果説明</td><td data-label="マンモグラフィ">当日</td><td data-label="超音波（エコー）">当日</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* WAVE divider — exams pale → price white */}
+      <svg className="vg-wave" viewBox="0 0 1280 140" preserveAspectRatio="none" style={{height:140, display:'block', marginTop:-1, background:'#FCE9EE'}}>
+        <path d="M0,90 C320,40 640,140 960,70 C1100,40 1200,80 1280,100 L1280,140 L0,140 Z" fill="#fff"/>
+      </svg>
+
+      {/* PRICE / CONTENT — white */}
+      <section className="vg-section vg-doctor">
+        <div className="vg-inner">
+          <div className="vg-eyebrow">PRICE</div>
+          <h2 className="vg-title">費用</h2>
+          <div className="vg-price-section">
+            <div className="vg-price-row"><span>武蔵野市乳がん検診（マンモグラフィ検査）</span><span className="amt">¥1,000</span></div>
+            <div className="vg-price-row"><span>マンモグラフィ</span><span className="amt">¥7,700</span></div>
+            <div className="vg-price-row"><span>乳房超音波検査</span><span className="amt">¥5,500</span></div>
+            <div className="vg-price-row"><span>マンモグラフィ＋乳房超音波検査</span><span className="amt">¥13,200</span></div>
+          </div>
+          <p className="vg-price-note">※乳がん検診無料クーポン券がある方は無料で受診可能です。詳しくはこちらを参照してください。</p>
+          <div style={{marginTop:'56px'}}>
+            <div className="vg-detail-label" style={{fontSize:'18px',marginBottom:'20px'}}>検診内容</div>
+            <div className="vg-exam-content-grid">
+              <div className="vg-exam-content-card">
+                <h4>武蔵野市検診</h4>
+                <ul><li>マンモグラフィ</li></ul>
+              </div>
+              <div className="vg-exam-content-card">
+                <h4>自費検診</h4>
+                <ul>
+                  <li>マンモグラフィ</li>
+                  <li>乳房超音波検査</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* WAVE divider — price white → flow pale */}
+      <svg className="vg-wave" viewBox="0 0 1280 140" preserveAspectRatio="none" style={{height:140, display:'block', marginTop:-1, background:'#fff'}}>
+        <path d="M0,80 C320,140 640,30 960,90 C1100,120 1200,80 1280,70 L1280,140 L0,140 Z" fill="#FCE9EE"/>
+      </svg>
+
+      {/* FLOW — pale pink */}
+      <section className="vg-section vg-exams">
+        <div className="vg-exams-deco"></div>
+        <div className="vg-exams-deco2"></div>
+        <div className="vg-inner">
+          <div className="vg-eyebrow">FLOW</div>
+          <h2 className="vg-title">検診の流れ</h2>
+          <div className="vg-steps">
+            {[
+              { n:'1', t:'受付', d:'以下、ご持参いただき、受付を済ませてください。問診票のご記入もお願いいたします。', note:'・健康保険証またはマイナ保険証\n・受診券（武蔵野市検診の場合）\n・前回の検診結果（お持ちの方）' },
+              { n:'2', t:'着替え', d:'上半身を検査着に着替えます。', note:'' },
+              { n:'3', t:'マンモグラフィ', d:'乳房専用のX線撮影のことです。乳房を板で圧迫し、薄く伸ばした状態で撮影します。', note:'' },
+              { n:'4', t:'乳房超音波（エコー）検査', d:'ゼリーを塗った乳房の上から機械をあてて乳房内部の様子を調べる検査です。', note:'' },
+              { n:'5', t:'検診後のご説明（結果）', d:'結果は、後日郵送いたします。（おおむね3週間から4週間後）\n武蔵野市乳がん検診要精査の方は、当院乳腺外来のご予約をお願いいたします。', note:'' },
+              { n:'6', t:'お会計', d:'受付にてお会計をお願いします。', note:'※現金・クレジットカード・交通系電子マネーでの決済が可能です。' },
+            ].map(s => (
+              <div className="vg-step" key={s.n}>
+                <div className="vg-step-icon">{s.n}</div>
+                <div className="vg-step-body">
+                  <div className="vg-step-title">{s.t}</div>
+                  <div className="vg-step-text">{s.d.split('\n').map((l,i,a)=><React.Fragment key={i}>{l}{i<a.length-1&&<br/>}</React.Fragment>)}</div>
+                  {s.note && <div className="vg-step-note">{s.note.split('\n').map((l,i,a)=><React.Fragment key={i}>{l}{i<a.length-1&&<br/>}</React.Fragment>)}</div>}
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="vg-notice-box">
+            <div className="vg-detail-label" style={{marginBottom:'16px'}}>マンモグラフィの際の注意</div>
+            <p style={{fontSize:'14px',color:'var(--text)',marginBottom:'12px'}}>以下の方は検査対象外です。</p>
+            <ul className="vg-notice-list">
+              <li>妊娠中または妊娠の可能性のある方</li>
+              <li>授乳中または断乳後3カ月以内の方（できれば6カ月以降）</li>
+              <li>ペースメーカーやシャントチューブ等の人工物を挿入されている方</li>
+              <li>豊胸術を受けた方</li>
+            </ul>
+            <p>マンモグラフィ対象外の方は超音波検査をお勧めしております。</p>
+          </div>
+          <div style={{marginTop:'32px', background:'#fff', borderRadius:'24px', padding:'32px 36px'}}>
+            <div className="vg-detail-label" style={{marginBottom:'16px'}}>乳がん検査後のフォロー</div>
+            <p style={{fontSize:'14px',lineHeight:'2.1',color:'var(--text-soft)',margin:0}}>検査結果が要精査・経過観察の方は乳腺外来のご予約をお願いします。</p>
+          </div>
+        </div>
+      </section>
+
+      {/* WAVE divider — flow pale → faq white */}
+      <svg className="vg-wave" viewBox="0 0 1280 140" preserveAspectRatio="none" style={{height:140, display:'block', marginTop:-1, background:'#FCE9EE'}}>
+        <path d="M0,90 C320,40 640,140 960,70 C1100,40 1200,80 1280,100 L1280,140 L0,140 Z" fill="#fff"/>
+      </svg>
+
+      {/* FAQ — white */}
+      <section className="vg-section vg-faq">
+        <div className="vg-faq-deco"></div>
+        <div className="vg-inner">
+          <div className="vg-eyebrow">FAQ</div>
+          <h2 className="vg-title">よくある質問</h2>
+          <div className="vg-faq-list">
+            {[
+              { q: 'マンモグラフィと超音波検査はどちらを受ければいいですか？', a: '検査当日にスタッフと相談して決めることもできます。年齢や乳腺の状態によって適した検査が異なります。' },
+              { q: '胸の痛みが気になるのですが、受診できますか？', a: 'はい、乳腺外来の受診をお願いいたします。痛みの原因はさまざまですので、まずは専門医にご相談ください。' },
+              { q: '検査を受ける時の服装はどんなものがよいですか？', a: 'ワンピースなど上下つながったものは避けてください。アクセサリーや制汗スプレーも避けていただきます。' },
+              { q: '検査結果はいつわかりますか？', a: 'マンモグラフィ・乳房超音波検査の結果は当日お伝えします。病理検査の結果は約2週間いただいております。' },
+            ].map((f,i)=>(
+              <div key={i} className={`vg-faq-item ${openFaq===i?'open':''}`}>
+                <div className="vg-faq-q" onClick={()=>setOpenFaq(openFaq===i?-1:i)}>
+                  <div className="vg-faq-badge">Q</div>
+                  <div className="vg-faq-q-text">{f.q}</div>
+                  <div className="vg-faq-toggle">+</div>
+                </div>
+                <div className="vg-faq-a"><div className="vg-faq-a-text">{f.a}</div></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* WAVE divider — faq white → cta deep */}
+      <svg className="vg-wave" viewBox="0 0 1280 140" preserveAspectRatio="none" style={{height:140, display:'block', marginTop:-1, background:'#fff'}}>
+        <path d="M0,80 C320,20 640,140 960,80 C1100,50 1200,90 1280,70 L1280,140 L0,140 Z" fill="#F8D2DD"/>
+        <path d="M0,110 C280,70 600,150 960,110 C1100,90 1200,120 1280,100 L1280,140 L0,140 Z" fill="#DC7A95"/>
+      </svg>
+
+      {/* CTA */}
+      <section className="vg-cta">
+        <div className="vg-cta-deco1"></div>
+        <div className="vg-cta-deco2"></div>
+        <div className="vg-inner">
+          <div className="vg-eyebrow" style={{justifyContent:'center'}}>RESERVATION</div>
+          <h2 className="vg-title">ご予約・お問い合わせ</h2>
+          <p className="vg-desc" style={{textAlign:'center'}}>些細なことでもお気軽にご相談ください。<br/>ネット予約またはお電話にてご予約を承っております。</p>
+          <div className="vg-cta-tel">0422-40-1770</div>
+          <div className="vg-cta-tel-sub">受付時間 9:15-12:15 / 14:15-18:15</div>
+          <a className="vg-btn">ネット予約はこちら</a>
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="vg-footer">
+        <div className="vg-foot-grid">
+          <div>
+            <div className="vg-foot-logo">吉祥寺レディースクリニック</div>
+            <div className="vg-foot-addr">〒180-0003 東京都武蔵野市吉祥寺南町2-6-10 富士パームビル5F<br />TEL. 0422-40-1770</div>
+          </div>
+          <div className="vg-foot-links"><a>News</a><a>Doctor</a><a>First Visit</a><a>Reservation</a><a>Instagram</a></div>
+        </div>
+        <div className="vg-foot-copy">© 2025 KICHIJOJI LADIES CLINIC ALL RIGHTS RESERVED.</div>
+      </footer>
+    </div>
+  );
+};
+
+window.VariantG2 = VariantG2;
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<VariantG2 />);
+</script>
+</body>
+</html>
