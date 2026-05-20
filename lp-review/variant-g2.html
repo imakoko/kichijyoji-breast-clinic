@@ -131,10 +131,12 @@ const VariantG2 = () => {
         position: relative;
         height: 520px;
         border-radius: 40px;
-        background: repeating-linear-gradient(135deg, #FCE9EE 0 12px, #F8D2DD 12px 24px);
-        display: flex; align-items: flex-end; justify-content: flex-end;
-        padding: 24px;
+        background: var(--pink-soft);
+        overflow: hidden;
         box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+      }
+      .vg-hero-img img, .vg-about-img img, .vg-doc-photo img {
+        width: 100%; height: 100%; object-fit: cover; display: block;
       }
       .vg-img-tag { font-family: var(--en); font-size: 11px; font-weight: 600; background: rgba(61,31,42,0.7); color: #fff; padding: 8px 14px; border-radius: 100px; letter-spacing: 0.05em; }
 
@@ -172,8 +174,8 @@ const VariantG2 = () => {
       .vg-about-text em { font-style: normal; color: var(--pink-deep); font-weight: 700; background: var(--pink-pale); padding: 2px 8px; border-radius: 6px; }
       .vg-about-img {
         height: 420px; border-radius: 50% 50% 40px 40px;
-        background: repeating-linear-gradient(135deg, #FFD9E4 0 10px, #FFC4D4 10px 20px);
-        display: flex; align-items: center; justify-content: center;
+        background: var(--pink-soft);
+        overflow: hidden;
         box-shadow: 0 16px 48px rgba(232,90,133,0.18);
       }
 
@@ -211,8 +213,8 @@ const VariantG2 = () => {
       .vg-doc-grid { display: grid; grid-template-columns: 320px 1fr; gap: 64px; margin-top: 48px; align-items: center; }
       .vg-doc-photo {
         width: 300px; height: 380px; border-radius: 40px;
-        background: repeating-linear-gradient(135deg, #FFC4D4 0 10px, #FF9DB8 10px 20px);
-        display: flex; align-items: center; justify-content: center;
+        background: var(--pink-soft);
+        overflow: hidden;
         box-shadow: 0 16px 48px rgba(232,90,133,0.2);
       }
       .vg-doc-name { font-family: var(--jp); font-size: 26px; font-weight: 700; margin-bottom: 6px; }
@@ -435,7 +437,7 @@ const VariantG2 = () => {
             </div>
           </div>
           <div className="vg-hero-img">
-            <div className="vg-img-tag">PLACEHOLDER · 院内 / 医師ポートレート</div>
+            <img src="images/nyusen.jpg" alt="乳腺外来" />
           </div>
         </div>
       </section>
@@ -458,7 +460,7 @@ const VariantG2 = () => {
               乳腺外来では、乳房のしこり、痛み、分泌物、違和感などの症状について、<em>女性医師・女性技師</em>が丁寧に診察・検査をいたします。<br /><br />
               「胸のしこりが気になる」「定期検診を受けたい」など、些細な事でもお気軽にご相談ください。
             </div>
-            <div className="vg-about-img"><div className="vg-img-tag">院内写真</div></div>
+            <div className="vg-about-img"><img src="images/nyusen.jpg" alt="院内" /></div>
           </div>
         </div>
       </section>
@@ -505,7 +507,7 @@ const VariantG2 = () => {
           <div className="vg-eyebrow">DOCTOR</div>
           <h2 className="vg-title">担当医師のご紹介</h2>
           <div className="vg-doc-grid">
-            <div className="vg-doc-photo"><div className="vg-img-tag">医師ポートレート</div></div>
+            <div className="vg-doc-photo"><img src="images/ito-doctor.jpg" alt="伊藤真由子先生" /></div>
             <div>
               <div className="vg-doc-name">伊藤 真由子 先生</div>
               <div className="vg-doc-en">Mayuko Ito, MD</div>
