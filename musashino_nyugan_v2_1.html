@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>武蔵野市 乳がん検診 | 吉祥寺レディースクリニック</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&family=Zen+Maru+Gothic:wght@300;400;500;700&family=Quicksand:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --rose:       #E46381;
+      --rose-mid:   #D4537E;
+      --rose-light: #FAE1E5;
+      --rose-pale:  #FDF0F2;
+      --rose-deco:  #F5CDD8;
+      --cream:      #FFFBFB;
+      --text:       #111111;
+      --text-mid:   #444444;
+      --text-light: #333333;
+      --serif:      'Zen Maru Gothic', sans-serif;
+      --sans:       'Zen Maru Gothic', 'Noto Sans JP', sans-serif;
+      --en:         'Quicksand', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--sans);
+      font-weight: 300;
+      color: var(--text);
+      font-weight: 700;
+      background: var(--rose-pale);
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    /* ─── Breadcrumb ──────────────────────────────────── */
+    .breadcrumb {
+      background: #fff;
+      padding: 12px 24px;
+      border-bottom: 1px solid var(--rose-deco);
+    }
+    .breadcrumb-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-light);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .breadcrumb-insta {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      color: var(--rose-mid);
+      text-decoration: none;
+      font-size: 12px;
+      font-family: var(--en);
+      letter-spacing: 0.04em;
+      opacity: 0.85;
+      transition: opacity 0.2s;
+    }
+    .breadcrumb-insta:hover { opacity: 1; }
+    .breadcrumb-insta svg { width: 36px; height: 36px; flex-shrink: 0; }
+    .breadcrumb-inner a {
+      color: var(--rose-mid);
+      text-decoration: none;
+    }
+    .breadcrumb-inner a:hover { text-decoration: underline; }
+    .breadcrumb-inner span { margin: 0 6px; }
+
+    /* ─── Page Header ─────────────────────────────────── */
+    .page-header {
+      background: linear-gradient(135deg, #fff 0%, var(--rose-pale) 100%);
+      padding: 60px 24px 52px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--rose-deco);
+    }
+    .page-header::before {
+      content: '';
+      position: absolute;
+      width: 280px; height: 280px;
+      border-radius: 50%;
+      background: var(--rose-deco);
+      opacity: 0.28;
+      top: -100px; right: -60px;
+    }
+    .page-header::after {
+      content: '';
+      position: absolute;
+      width: 150px; height: 150px;
+      border-radius: 50%;
+      background: var(--rose-light);
+      opacity: 0.32;
+      bottom: -45px; left: -25px;
+    }
+    .page-header-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .page-label {
+      font-family: var(--en);
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      color: var(--rose-mid);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .page-title {
+      font-family: var(--serif);
+      font-size: clamp(32px, 5vw, 44px);
+      color: var(--rose-mid);
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+    .page-title small {
+      display: inline;
+      font-size: 1em;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      margin-right: 6px;
+    }
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin: 22px 0 28px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 14px;
+      border-radius: 4px;
+      font-size: 13px;
+      font-family: var(--sans);
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      background: var(--rose-pale);
+      color: #111111;
+      border: 1px solid var(--rose-deco);
+    }
+    .badge-period, .badge-target, .badge-price {}
+    .header-cta {
+      display: inline-block;
+      background: var(--rose);
+      color: #fff;
+      font-size: 15px;
+      letter-spacing: 0.08em;
+      padding: 14px 40px;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .header-cta:hover { opacity: 0.85; }
+    .insta-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 16px;
+      color: var(--rose-mid);
+      text-decoration: none;
+      font-size: 13px;
+      font-family: var(--en);
+      letter-spacing: 0.06em;
+      opacity: 0.85;
+      transition: opacity 0.2s;
+    }
+    .insta-link:hover { opacity: 1; }
+    .insta-link svg { width: 20px; height: 20px; }
+
+    /* ─── Section ─────────────────────────────────────── */
+    .section { padding: 64px 24px; }
+    .section-white { background: #fff; }
+    .section-pale  { background: var(--rose-pale); }
+    .section-cream { background: var(--cream); }
+    .section-inner {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .section-label {
+      font-family: var(--en);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      color: var(--rose);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(24px, 3.5vw, 30px);
+      color: var(--rose-mid);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      margin-bottom: 14px;
+    }
+    .section-rule {
+      width: 36px; height: 1px;
+      background: var(--rose);
+      margin-bottom: 32px;
+    }
+
+    /* ─── Summary cards ───────────────────────────────── */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 8px;
+    }
+    .summary-card {
+      background: #fff;
+      border: 1px solid var(--rose-deco);
+      border-radius: 12px;
+      padding: 22px 20px;
+    }
+    .summary-card-label {
+      font-size: 15px;
+      letter-spacing: 0.12em;
+      color: var(--rose-mid);
+      margin-bottom: 8px;
+    }
+    .summary-card-value {
+      font-family: var(--sans);
+      font-size: 16px;
+      color: var(--text);
+      font-weight: 700;
+      line-height: 1.6;
+    }
+    .summary-card-sub {
+      font-size: 13px;
+      color: var(--text-light);
+      font-weight: 700;
+      margin-top: 6px;
+      line-height: 1.7;
+    }
+
+    .coupon-note {
+      display: inline-block;
+      background: var(--rose-light);
+      color: var(--rose-mid);
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 100px;
+      margin-top: 6px;
+    }
+    .coupon-note br { display: none; }
+
+    /* ─── Steps ───────────────────────────────────────── */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .step {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      position: relative;
+    }
+    .step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 19px;
+      top: 44px;
+      width: 2px;
+      height: calc(100% - 12px);
+      background: var(--rose-deco);
+    }
+    .step-num {
+      flex-shrink: 0;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: var(--rose);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--serif);
+      font-size: 16px;
+      font-weight: 600;
+      position: relative;
+      z-index: 1;
+    }
+    .step-body {
+      padding: 6px 0 36px;
+    }
+    .step:last-child .step-body { padding-bottom: 0; }
+    .step-title {
+      font-family: var(--serif);
+      font-size: 19px;
+      color: var(--rose-mid);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .step-text {
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.9;
+      color: var(--text);
+    }
+    .step-tag {
+      display: inline-block;
+      font-size: 12px;
+      background: var(--rose-pale);
+      color: var(--rose-mid);
+      border: 1px solid var(--rose-deco);
+      padding: 3px 12px;
+      border-radius: 100px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    /* ─── Clinic highlight card ───────────────────────── */
+    .clinic-card {
+      background: linear-gradient(135deg, var(--rose-pale) 0%, #fff 100%);
+      border: 1.5px solid var(--rose-deco);
+      border-radius: 16px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .clinic-card-body {
+      padding: 36px 32px;
+    }
+    .clinic-card-map {
+      min-height: 280px;
+      position: relative;
+    }
+    .clinic-card-map iframe {
+      width: 100%;
+      height: 100%;
+      display: block;
+      border: 0;
+    }
+    .clinic-card-label {
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      color: var(--rose-mid);
+      margin-bottom: 6px;
+    }
+    .clinic-card-name {
+      font-family: var(--sans);
+      font-size: 22px;
+      color: var(--rose-mid);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .clinic-card-text {
+      font-size: 15px;
+      color: var(--text-mid);
+      line-height: 1.85;
+      margin-bottom: 20px;
+    }
+    .clinic-card-btn {
+      display: block;
+      margin: 0 auto;
+      width: fit-content;
+      background: var(--rose);
+      color: #fff;
+      padding: 13px 36px;
+      border-radius: 100px;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .clinic-card-btn:hover { opacity: 0.85; }
+
+    /* ─── Caution ─────────────────────────────────────── */
+    .caution-list { list-style: none; padding: 0; }
+    .caution-list > li {
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.85;
+      padding: 13px 0 13px 1.5em;
+      text-indent: -1.5em;
+      border-bottom: 1px solid var(--rose-light);
+      color: var(--text);
+    }
+    .caution-list > li::before { content: '・'; color: var(--rose); }
+    .caution-sub-title {
+      font-family: var(--serif);
+      font-size: 16px;
+      color: var(--rose-mid);
+      background: var(--rose-light);
+      padding: 9px 18px;
+      border-radius: 6px;
+      margin: 28px 0 10px;
+      display: block;
+    }
+    .caution-sub-list { list-style: none; padding: 0 0 0 12px; }
+    .caution-sub-list li {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-mid);
+      padding: 5px 0 5px 1.2em;
+      text-indent: -1.2em;
+    }
+    .caution-sub-list li::before { content: '・'; color: var(--text-light); }
+
+    /* ─── Bridge ──────────────────────────────────────── */
+    .bridge-section {
+      background: #fff;
+      border: 1px solid var(--rose-deco);
+      border-radius: 16px;
+      padding: 40px;
+      text-align: center;
+      margin-top: 48px;
+    }
+    .bridge-label {
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      color: var(--rose-mid);
+      margin-bottom: 10px;
+    }
+    .bridge-title {
+      font-family: var(--serif);
+      font-size: 22px;
+      color: var(--rose-mid);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .bridge-text {
+      font-size: 15px;
+      color: var(--text-mid);
+      line-height: 1.9;
+      margin-bottom: 22px;
+    }
+    .bridge-btn {
+      display: inline-block;
+      background: var(--rose);
+      color: #fff;
+      padding: 13px 38px;
+      border-radius: 100px;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .bridge-btn:hover { opacity: 0.85; }
+
+    /* ─── FAQ ─────────────────────────────────────────── */
+    .faq-item { border-bottom: 1px solid var(--rose-deco); }
+    .faq-item summary {
+      list-style: none;
+      padding: 20px 0;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-q {
+      flex-shrink: 0;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--rose);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--serif);
+      font-size: 14px;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+    .faq-arrow {
+      margin-left: auto;
+      flex-shrink: 0;
+      color: var(--rose);
+      font-size: 18px;
+      transition: transform 0.2s;
+    }
+    .faq-item[open] .faq-arrow { transform: rotate(180deg); }
+    .faq-answer {
+      padding: 0 16px 22px 42px;
+      font-size: 15px;
+      line-height: 1.95;
+      color: var(--text-mid);
+    }
+
+    /* ─── CTA section ─────────────────────────────────── */
+    .cta-section {
+      background: var(--rose);
+      padding: 72px 24px;
+      text-align: center;
+    }
+    .cta-title {
+      font-family: var(--serif);
+      font-size: clamp(25px, 4vw, 31px);
+      color: #fff;
+      font-weight: 600;
+      margin-bottom: 12px;
+      letter-spacing: 0.06em;
+    }
+    .cta-text {
+      font-size: 15px;
+      color: rgba(255,255,255,0.88);
+      margin-bottom: 32px;
+      line-height: 1.85;
+    }
+    .cta-btn {
+      display: inline-block;
+      background: #fff;
+      color: var(--rose);
+      padding: 14px 52px;
+      border-radius: 100px;
+      font-size: 16px;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .cta-btn:hover { opacity: 0.9; }
+    .tel-note {
+      font-size: 14px;
+      color: rgba(255,255,255,0.82);
+      margin-top: 24px;
+    }
+    .tel-note a {
+      color: #fff;
+      font-family: var(--serif);
+      font-size: 24px;
+      font-weight: 600;
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      display: block;
+      margin: 4px 0;
+    }
+
+    /* ─── Fixed CTA ───────────────────────────────────── */
+    .fixed-cta {
+      position: fixed;
+      bottom: 28px; right: 28px;
+      width: 108px; height: 108px;
+      border-radius: 50%;
+      background: #fff;
+      color: var(--rose-mid);
+      border: 2px solid var(--rose-deco);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 13px;
+      line-height: 1.5;
+      text-align: center;
+      letter-spacing: 0.04em;
+      box-shadow: 0 4px 20px rgba(228, 99, 129, 0.22);
+      z-index: 100;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .fixed-cta:hover { opacity: 0.9; transform: scale(1.04); }
+
+    /* ─── Compare Table ──────────────────────────────── */
+    /* ─── Overview Note ──────────────────────────────── */
+    .overview-note {
+      background: #fff;
+      border: 1px solid var(--rose-deco);
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin-top: 16px;
+    }
+    .overview-note-title {
+      font-family: var(--serif);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--rose-mid);
+      margin-bottom: 6px;
+    }
+    .overview-note-text {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-mid);
+      line-height: 1.8;
+    }
+
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--rose-deco);
+    }
+    .compare-table thead tr {
+      background: var(--rose);
+    }
+    .compare-table thead th {
+      padding: 15px 20px;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-align: center;
+    }
+    .compare-table thead th:first-child {
+      background: var(--rose-light);
+    }
+    .compare-table tbody tr {
+      border-bottom: 1px solid var(--rose-deco);
+    }
+    .compare-table tbody tr:last-child {
+      border-bottom: none;
+    }
+    .compare-table tbody td {
+      padding: 15px 20px;
+      font-size: 14px;
+      font-weight: 700;
+      text-align: center;
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .compare-table tbody td:first-child {
+      background: var(--rose-pale);
+      color: var(--text-mid);
+      text-align: left;
+      border-right: 1px solid var(--rose-deco);
+      width: 30%;
+    }
+    .compare-table tbody tr:nth-child(even) td:not(:first-child) {
+      background: #fdf7f8;
+    }
+
+    /* ─── Mobile ──────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .coupon-note br { display: inline; }
+      .section { padding: 48px 20px; }
+      .summary-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .clinic-card { grid-template-columns: 1fr; }
+      .clinic-card-map { min-height: 220px; }
+      .bridge-section { padding: 32px 22px; }
+      .faq-answer { padding-left: 28px; }
+      .fixed-cta { width: 88px; height: 88px; font-size: 10px; bottom: 20px; right: 20px; }
+      .step:not(:last-child)::after { left: 19px; }
+      .compare-table thead th,
+      .compare-table tbody td { padding: 11px 12px; font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Fixed CTA -->
+<a href="https://kichijyoji-ladies.com/reservation" target="_blank" rel="noopener noreferrer" class="fixed-cta">
+  ご予約<br>はこちら
+</a>
+
+<!-- Breadcrumb -->
+<nav class="breadcrumb">
+  <div class="breadcrumb-inner">
+    <div>
+      <a href="https://kichijyoji-ladies.com/">吉祥寺レディースクリニック</a><span>›</span>
+      乳がん検診
+    </div>
+    <a href="https://www.instagram.com/kichijouji.ladies.breast/" target="_blank" rel="noopener noreferrer" class="breadcrumb-insta">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg>
+    </a>
+  </div>
+</nav>
+
+<!-- ① Page Header -->
+<header class="page-header">
+  <div class="page-header-inner">
+    <p class="page-label">Musashino City / Breast Cancer Screening</p>
+    <h1 class="page-title">
+      <small>武蔵野市</small>乳がん検診
+    </h1>
+    <p style="font-size: 16px; color: var(--text-mid); line-height: 1.9;">
+      吉祥寺レディースクリニックは武蔵野市乳がん検診の指定医療機関です。<br>
+      女性医師・女性技師が対応いたします。
+    </p>
+    <div class="badge-row">
+      <span class="badge badge-period">令和8年6月1日〜令和9年2月27日</span>
+      <span class="badge badge-target">40歳以上の女性（2年に1回）</span>
+      <span class="badge badge-price">¥1,000</span>
+    </div>
+    <a href="https://kichijyoji-ladies.com/reservation" target="_blank" rel="noopener noreferrer" class="header-cta">ネット予約はこちら</a>
+  </div>
+</header>
+
+<!-- ② 検診概要 -->
+<section class="section section-white">
+  <div class="section-inner">
+    <p class="section-label">Overview</p>
+    <h2 class="section-title">検診の概要</h2>
+    <div class="section-rule"></div>
+
+    <div class="summary-grid">
+      <div class="summary-card">
+        <p class="summary-card-label">対象者</p>
+        <p class="summary-card-value">40歳以上の女性</p>
+        <p class="summary-card-sub">武蔵野市内に住民登録がある方<br>（令和9年3月31日時点）<br>2年に1回受診可</p>
+      </div>
+      <div class="summary-card">
+        <p class="summary-card-label">費用（税込）</p>
+        <p class="summary-card-value">¥1,000</p>
+        <span class="coupon-note">無料クーポンあり<br>（対象者に郵送）</span>
+      </div>
+      <div class="summary-card">
+        <p class="summary-card-label">検診内容</p>
+        <p class="summary-card-value">問診 ＋ マンモグラフィ</p>
+        <p class="summary-card-sub">乳房エックス線検査（マンモグラフィ）</p>
+      </div>
+      <div class="summary-card">
+        <p class="summary-card-label">実施期間</p>
+        <p class="summary-card-value">令和8年6月1日〜令和9年2月27日</p>
+      </div>
+    </div>
+
+    <div class="overview-note">
+      <p class="overview-note-title">企業検診にも対応</p>
+      <p class="overview-note-text">企業検診の対応も可能です。会社宛てに領収書が必要な方は、受付時にお申し付けください。</p>
+    </div>
+
+    <p class="section-label" style="margin-top: 40px;">Comparison</p>
+    <h3 class="section-title">マンモグラフィと超音波の比較</h3>
+    <div class="section-rule"></div>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>マンモグラフィ</th>
+          <th>超音波（エコー）</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>検査方法</td>
+          <td>X線撮影</td>
+          <td>超音波</td>
+        </tr>
+        <tr>
+          <td>痛み</td>
+          <td>圧迫時に痛みあり</td>
+          <td>痛みなし</td>
+        </tr>
+        <tr>
+          <td>被曝</td>
+          <td>微量あり</td>
+          <td>なし</td>
+        </tr>
+        <tr>
+          <td>得意な検出</td>
+          <td>石灰化の検出に優れる</td>
+          <td>しこりの検出に優れる</td>
+        </tr>
+        <tr>
+          <td>若い方（20-30代）</td>
+          <td>判読が難しい場合も</td>
+          <td>乳腺が多くても対応可能</td>
+        </tr>
+        <tr>
+          <td>結果説明</td>
+          <td>当日</td>
+          <td>当日</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ③ 受診の流れ -->
+<section class="section section-pale">
+  <div class="section-inner">
+    <p class="section-label">Flow</p>
+    <h2 class="section-title">受診の流れ</h2>
+    <div class="section-rule"></div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <p class="step-title">受診券シールが届く <span class="step-tag">5月下旬</span></p>
+          <p class="step-text">
+            <strong style="color: #222222; font-weight: 700;">受診当日は必ずご持参ください。</strong><br><br>
+            ※対象者の方には5月下旬に武蔵野市から受診券シールが郵送されます。<br>
+            ※前年度に40歳になった方には無料クーポン券も同封されます。<br>
+            詳しくは<a href="https://www.city.musashino.lg.jp/kenko_fukushi/kenko_hoken/kenkoshinsa_gankenshin/gankenshin/1016143.html" target="_blank" rel="noopener noreferrer">武蔵野市乳がん検診</a>のサイトをご覧ください。
+          </p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <p class="step-title">ご予約</p>
+          <p class="step-text">
+            ネット予約またはお電話でご予約ください。予約なしでの当日受付も可能ですが、予約優先となりますので待ち時間が発生する場合があります。<br>
+            乳がん検診は<strong style="color: #222222; font-weight: 700;">火曜日午後はお休み</strong>です。検査可能日はネット予約にてご確認ください。
+          </p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <p class="step-title">受診当日</p>
+          <p class="step-text">
+            受診券シールと本人確認書類（保険証など）をご持参ください。<br>
+            検査時に上半身をすべて脱いでいただきます。できるだけワンピースを避け、<strong style="color: #222222; font-weight: 700;">上下セパレートの服装</strong>でお越しください。<br>
+            制汗剤は使用しないでください（画像に影響する場合があります）。
+          </p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <p class="step-title">結果通知 <span class="step-tag">3〜4週間後</span></p>
+          <p class="step-text">
+            検診結果は武蔵野市から郵送でお知らせします（おおむね3〜4週間後）。<br>
+            要精密検査（要精検）となった方は、当院乳腺外来（木曜日 14:30〜18:00）へご予約ください。
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ④ 当院で受診できます -->
+<section class="section section-white">
+  <div class="section-inner">
+    <p class="section-label">Our Clinic</p>
+    <h2 class="section-title">吉祥寺レディースクリニックで受診できます</h2>
+    <div class="section-rule"></div>
+
+    <div class="clinic-card">
+      <div class="clinic-card-body">
+        <p class="clinic-card-label">武蔵野市 乳がん検診 指定医療機関</p>
+        <p class="clinic-card-name">吉祥寺レディースクリニック</p>
+        <p class="clinic-card-text">
+          〒180-0003 武蔵野市吉祥寺南町2-6-10 富士パームビル5F<br>
+          TEL：0422-40-1770<br>
+          受付時間：9:15〜12:15 / 14:15〜18:15<br>
+          休診日：月曜日・土曜日午後・日曜日・祝日
+        </p>
+        <a href="https://kichijyoji-ladies.com/reservation" target="_blank" rel="noopener noreferrer" class="clinic-card-btn">ネット予約はこちら</a>
+      </div>
+      <div class="clinic-card-map">
+        <iframe
+          src="https://maps.google.com/maps?saddr=吉祥寺駅&daddr=吉祥寺レディースクリニック+武蔵野市吉祥寺南町2-6-10&dirflg=w&output=embed&hl=ja"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
+    </div>
+
+    <!-- 乳腺外来へのブリッジ -->
+    <div class="bridge-section">
+      <p class="bridge-label">二次検診のご案内</p>
+      <h3 class="bridge-title">要精密検査となった方へ</h3>
+      <p class="bridge-text">
+        乳がん検診で「要精密検査」となった方は、当院の乳腺外来にてご相談いただけます。<br>
+        女性医師が担当し、精密検査から治療方針まで継続してサポートします。
+      </p>
+      <a href="#" class="bridge-btn">乳腺外来のご案内 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ⑤ ご注意事項 -->
+<section class="section section-cream">
+  <div class="section-inner">
+    <p class="section-label">Caution</p>
+    <h2 class="section-title">ご注意事項</h2>
+    <div class="section-rule"></div>
+
+    <ul class="caution-list">
+      <li>受診当日は「受診券シール」を必ずご持参ください。ご持参されない場合は検査を受けることができません。</li>
+      <li>昨年度に乳がん検診を受診された方は今年度の対象外です（2年に1回）。</li>
+      <li>乳房を圧迫して撮影するため、痛みを感じることがあります。月経後7〜10日目ごろの乳腺がやわらかくなる時期に受診することをおすすめします。</li>
+      <li>制汗剤は使用しないでください。画像（写真）に影響を及ぼす場合があります。</li>
+    </ul>
+
+    <span class="caution-sub-title">乳がん検診を受けられない方</span>
+    <ul class="caution-sub-list">
+      <li>自覚症状のある方（しこり・乳頭分泌など）</li>
+      <li>経過観察中の方</li>
+      <li>妊娠中または妊娠の可能性のある方</li>
+      <li>授乳中または断乳後3カ月以内の方</li>
+      <li>ペースメーカーやシャントチューブ等の人工物を挿入されている方</li>
+      <li>豊胸術を受けた方</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ⑥ FAQ -->
+<section class="section section-white">
+  <div class="section-inner">
+    <p class="section-label">FAQ</p>
+    <h2 class="section-title">よくあるご質問</h2>
+    <div class="section-rule"></div>
+
+    <details class="faq-item">
+      <summary>
+        <span class="faq-q">Q</span>
+        <span>予約は必要ですか？</span>
+        <span class="faq-arrow">▾</span>
+      </summary>
+      <div class="faq-answer">
+        予約なしの当日受付も可能ですが、予約優先となりますので待ち時間が発生いたします。ネット予約またはお電話にてご予約いただくことをおすすめします。乳がん検診は火曜日午後はお休みです。
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>
+        <span class="faq-q">Q</span>
+        <span>生理中でも検査を受けられますか？</span>
+        <span class="faq-arrow">▾</span>
+      </summary>
+      <div class="faq-answer">
+        生理中でも受診可能ですが、月経後7〜10日目ごろの乳腺がやわらかくなる時期が最適です。経血の多い日は避けることをおすすめします。
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>
+        <span class="faq-q">Q</span>
+        <span>結果はいつ、どのように通知されますか？</span>
+        <span class="faq-arrow">▾</span>
+      </summary>
+      <div class="faq-answer">
+        検診結果は武蔵野市から郵送でお知らせします（おおむね3〜4週間後）。要精密検査（要精検）となった場合は、早めに乳腺外来にてご相談ください。
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>
+        <span class="faq-q">Q</span>
+        <span>無料クーポンはいつ届きますか？</span>
+        <span class="faq-arrow">▾</span>
+      </summary>
+      <div class="faq-answer">
+        前年度に40歳になった方（今年度40〜41歳の方）に、5月下旬に受診券シールと一緒に無料クーポン券が郵送されます。クーポンをお持ちの方は費用が無料になります。
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ⑦ CTA -->
+<section class="cta-section">
+  <div class="section-inner">
+    <h2 class="cta-title">ご予約・お問い合わせ</h2>
+    <p class="cta-text">
+      受診券が届いたら、お早めにご予約ください。<br>
+      ネット予約からもご予約いただけます。
+    </p>
+    <a href="https://kichijyoji-ladies.com/reservation" target="_blank" rel="noopener noreferrer" class="cta-btn">ネット予約はこちら</a>
+    <p class="tel-note">
+      お電話でのお問い合わせ
+      <a href="tel:0422401770">0422-40-1770</a>
+      <small style="font-size: 12px; opacity: 0.8; display: block; margin-top: 4px;">
+        受付時間 9:15〜12:15 / 14:15〜18:15（月曜・土曜午後・日祝 休診）
+      </small>
+    </p>
+    <a href="https://www.instagram.com/kichijouji.ladies.breast/" target="_blank" rel="noopener noreferrer" class="insta-link" style="justify-content: center; display: flex;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg>
+      @kichijouji.ladies.breast
+    </a>
+  </div>
+</section>
+
+</body>
+</html>
