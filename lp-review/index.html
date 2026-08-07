@@ -63,6 +63,12 @@
     color: #CCC;
   }
 
+  /* 参考：不採用の案（グレー表示） */
+  .archived .letter,
+  .archived .label,
+  .archived .arrow { color: #BBB; }
+  .archived a:hover .label { color: #999; }
+
   /* パスワード画面 */
   #gate {
     display: flex;
@@ -127,15 +133,13 @@
     <li style="display:none"><a href="variant-b.html"><span class="letter">B</span><span class="label">ベージュ × 丸サンセリフ</span><span class="arrow">→</span></a></li>
     <li style="display:none"><a href="variant-c.html"><span class="letter">C</span><span class="label">無彩色 × アーチ × Cormorant</span><span class="arrow">→</span></a></li>
     <li style="display:none"><a href="variant-d.html"><span class="letter">D</span><span class="label">案Aのピンク版</span><span class="arrow">→</span></a></li>
-    <li><a href="_G-standalone_v2_31.html"><span class="letter">案1</span><span class="label">曲線 × はっきり色分け</span><span class="arrow">→</span></a></li>
-    <li><a href="variant-f.html"><span class="letter">案2</span><span class="label">丸ゴシック × 鮮やかピンク</span><span class="arrow">→</span></a></li>
-    <li><a href="variant-e.html"><span class="letter">案3</span><span class="label">ピーチピンク × ホワイト基調</span><span class="arrow">→</span></a></li>
+    <li><a href="../nyusen_lp_v1_1.html"><span class="letter">案1</span><span class="label">乳腺外来</span><span class="arrow">→</span></a></li>
   </ul>
 
-  <p style="font-size:11px; color:#BBB; letter-spacing:0.14em; margin:32px 0 12px; text-transform:uppercase; width:100%; max-width:480px; text-align:left;">武蔵野市 乳がん検診</p>
-  <ul>
-    <li><a href="../musashino_nyugan_v2_2.html"><span class="letter">（1）</span><span class="label">連絡いただきました修正を加えた版</span><span class="arrow">→</span></a></li>
-    <li><a href="../musashino_nyugan_v2.html"><span class="letter">（2）</span><span class="label">弊社提案版</span><span class="arrow">→</span></a></li>
+  <p style="font-size:11px; color:#BBB; letter-spacing:0.14em; margin:32px 0 12px; text-transform:uppercase; width:100%; max-width:480px; text-align:left;">その他のデザイン案（参考）</p>
+  <ul class="archived">
+    <li><a href="variant-f.html"><span class="letter">案2</span><span class="label">丸ゴシック × 鮮やかピンク</span><span class="arrow">→</span></a></li>
+    <li><a href="variant-e.html"><span class="letter">案3</span><span class="label">ピーチピンク × ホワイト基調</span><span class="arrow">→</span></a></li>
   </ul>
 </div>
 
