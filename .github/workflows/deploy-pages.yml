@@ -1,0 +1,29 @@
+name: Deploy to Cloudflare Pages
+
+# main に push すると https://kichijyoji-breast-clinic.pages.dev へ自動で公開する。
+# （2026-09-18 Vercel から移行。Vercel は畳む）
+# 公開するのはページのファイルだけ。docs/ と .github/ は出さない。
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Collect site files
+        run: |
+          mkdir -p _site
+          rsync -a --exclude '.git' --exclude '.github' --exclude 'docs' \
+            --exclude '.vercel' --exclude '.gitignore' --exclude 'vercel.json' \
+            --exclude '_site' ./ _site/
+
+      - name: Deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy _site --project-name=kichijyoji-breast-clinic --branch=main --commit-hash=${{ github.sha }}
